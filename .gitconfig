@@ -1,0 +1,8 @@
+[user]
+	name = Colin Woodbury
+	email = colin@fosskers.ca
+	signingkey = 101BA589276BB074
+[commit]
+	gpgsign = true
+[merge]
+	conflictstyle=diff3
