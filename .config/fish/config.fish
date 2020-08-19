@@ -1,10 +1,13 @@
 set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/.nix-profile/bin' '/home/colin/code/go/bin' '/home/colin/code/ruby/gems/bin' '/home/colin/.cargo/bin/'
 
+set -x PKG_CONFIG_ALLOW_CROSS 1
+
 set -x GEM_HOME '/home/colin/code/ruby/gems'
 
+# Golang
 set -x GOPATH '/home/colin/code/go'
-
 set -x GO111MODULE 'auto'
+set -x CGO_ENABLED 1
 
 set -x EDITOR "emacs"
 
@@ -35,11 +38,11 @@ function hi
 end
 
 function hb
-    hledger bs -V $argv
+    hledger bs -V --tree $argv
 end
 
 function hc
-    hledger cf -VMT -b 2020 $argv
+    hledger cf -VQT -b 2020 $argv
 end
 
 function hbud
