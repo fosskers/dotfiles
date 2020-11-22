@@ -33,13 +33,14 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     java
      auto-completion
      emacs-lisp
      git
      helm
      javascript
      (keyboard-layout :variables kl-layout 'colemak-hnei)
-     lsp
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      markdown
      (org :variables org-enable-github-support t)
      shell-scripts
@@ -50,7 +51,8 @@ This function should only modify configuration layer settings."
      ;; Main programming languages
      (rust :variables rust-format-on-save t)
      (haskell :variables
-              haskell-completion-backend 'ghci
+              haskell-completion-backend 'lsp
+              lsp-haskell-process-path-hie "haskell-language-server-wrapper"
               haskell-stylish-on-save t)
      (go :variables
          go-format-before-save t

@@ -13,8 +13,6 @@ set -x EDITOR "emacs"
 
 set -x JAVA_HOME '/usr/lib/jvm/default'
 
-set -x SPARK_HOME '/opt/apache-spark'
-
 # HLedger
 set -x LEDGER_FILE '/home/colin/sync/life/finances/finances.journal'
 
@@ -33,8 +31,12 @@ ulimit -Sn 20000
 setxkbmap -option compose:ralt
 setxkbmap -option ctrl:nocaps
 
+function la
+    exa -laah
+end
+
 function hi
-    hledger is -VMA -b 2020 $argv
+    hledger is -VMA -b 2020-05 $argv
 end
 
 function hb
@@ -42,7 +44,7 @@ function hb
 end
 
 function hc
-    hledger cf -VQT -b 2020 $argv
+    hledger cf -VMT -b 2020-05 $argv
 end
 
 function hbud
