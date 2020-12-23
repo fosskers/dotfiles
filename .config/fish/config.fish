@@ -36,7 +36,7 @@ function la
 end
 
 function hi
-    hledger is -VMA -b 2020-05 $argv
+    hledger is -VMA -b 2020-10 $argv
 end
 
 function hb
