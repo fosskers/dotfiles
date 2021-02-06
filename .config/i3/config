@@ -179,6 +179,14 @@ mode "resize" {
 
 bindsym $mod+p mode "resize"
 
+# Custom Styling
+default_border pixel
+# gaps outer 10
+gaps inner 10
+
+# Compositing (to enable terminal transparency, etc)
+exec_always --no-startup-id picom -b
+
 # Start Polybar
 exec_always --no-startup-id /home/colin/.config/polybar/launch.sh
 

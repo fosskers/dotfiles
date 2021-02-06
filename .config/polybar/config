@@ -146,7 +146,7 @@ type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+; format-underline = #f90000
 label = %percentage:2%%
 
 [module/memory]
@@ -154,7 +154,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+; format-underline = #4bffdc
 label = %percentage_used%%
 
 [module/wlan]
@@ -163,7 +163,7 @@ interface = wlp4s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+; format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
@@ -183,15 +183,12 @@ ramp-signal-foreground = ${colors.foreground-alt}
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
-
-time = %H:%M
-time-alt = %H:%M:%S
+date = "%Y-%m-%d"
+time = %H:%M %Z
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+; format-underline = #0a6cf5
 
 label = %date% %time%
 
@@ -229,7 +226,7 @@ adapter = AC
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+; format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
@@ -255,24 +252,24 @@ animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
+; [module/temperature]
+; type = internal/temperature
+; thermal-zone = 0
+; warn-temperature = 60
 
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+; format = <ramp> <label>
+; format-underline = #f50a4d
+; format-warn = <ramp> <label-warn>
+; format-warn-underline = ${self.format-underline}
 
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+; label = %temperature-c%
+; label-warn = %temperature-c%
+; label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+; ramp-0 = 
+; ramp-1 = 
+; ramp-2 = 
+; ramp-foreground = ${colors.foreground-alt}
 
 [settings]
 screenchange-reload = true
