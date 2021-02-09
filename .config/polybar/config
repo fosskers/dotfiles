@@ -57,7 +57,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
 modules-left = i3 xwindow
-modules-right = pulseaudio memory cpu wlan battery date
+modules-right = pulseaudio memory cpu wlan temperature battery date japan
 
 tray-position = right
 tray-padding = 2
@@ -182,15 +182,17 @@ ramp-signal-foreground = ${colors.foreground-alt}
 [module/date]
 type = internal/date
 interval = 5
-
-date = "%Y-%m-%d"
+date = "%b %d"
 time = %H:%M %Z
-
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 ; format-underline = #0a6cf5
-
 label = %date% %time%
+
+[module/japan]
+type = custom/script
+interval = 5
+exec = TZ=Asia/Tokyo date "+%H:%M %Z"
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -252,24 +254,24 @@ animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
-; [module/temperature]
-; type = internal/temperature
-; thermal-zone = 0
-; warn-temperature = 60
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
 
-; format = <ramp> <label>
+format = <ramp> <label>
 ; format-underline = #f50a4d
-; format-warn = <ramp> <label-warn>
+format-warn = <ramp> <label-warn>
 ; format-warn-underline = ${self.format-underline}
 
-; label = %temperature-c%
-; label-warn = %temperature-c%
-; label-warn-foreground = ${colors.secondary}
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
 
-; ramp-0 = 
-; ramp-1 = 
-; ramp-2 = 
-; ramp-foreground = ${colors.foreground-alt}
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
 
 [settings]
 screenchange-reload = true
