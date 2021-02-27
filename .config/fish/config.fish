@@ -1,24 +1,22 @@
-set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/.nix-profile/bin' '/home/colin/code/go/bin' '/home/colin/code/ruby/gems/bin' '/home/colin/.cargo/bin/'
+set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/code/go/bin' '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin'
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
+set -x EDITOR "emacs"
+set -x JAVA_HOME '/usr/lib/jvm/default'
 
-set -x GEM_HOME '/home/colin/code/ruby/gems'
+# Wayland
+set -x MOZ_ENABLE_WAYLAND 1
+set -x QT_QPA_PLATFORM 'wayland-egl'
+set -x SDL_VIDEODRIVER 'wayland'
+# set -x SDL_VIDEODRIVER 'x11'
 
 # Golang
 set -x GOPATH '/home/colin/code/go'
-set -x GO111MODULE 'auto'
+set -x GO111MODULE 'on'
 set -x CGO_ENABLED 1
-
-set -x EDITOR "emacs"
-
-set -x JAVA_HOME '/usr/lib/jvm/default'
 
 # HLedger
 set -x LEDGER_FILE '/home/colin/sync/life/finances/finances.journal'
-
-# Nix
-set -x NIX_PATH 'nixpkgs=/home/colin/.nix-defexpr/channels/nixpkgs'
-set -x NIX_SSL_CERT_FILE '/etc/ssl/certs/ca-certificates.crt'
 
 # Temporary
 set -x LANG 'en_US.UTF-8'
@@ -36,15 +34,15 @@ function la
 end
 
 function hi
-    hledger is -VMA -b 2020-10 $argv
+    hledger is -VMA -b 2020-10 --pretty-tables $argv
 end
 
 function hb
-    hledger bs -V --tree $argv
+    hledger bs -V --tree --pretty-tables $argv
 end
 
 function hc
-    hledger cf -VMT -b 2020-05 $argv
+    hledger cf -VMT -b 2020-11 $argv
 end
 
 function hbud

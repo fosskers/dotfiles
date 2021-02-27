@@ -1,0 +1,48 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "disable-click": true,
+    },
+    "clock": {
+        "format": "{:%Y %b %d %R}"
+    },
+    "cpu": {
+        "format": " {usage}%"
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        "critical-threshold": 75,
+        "format": " {temperatureC}°C"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": " {essid}",
+        "format-disconnected": "⚠ Disconnected"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}
