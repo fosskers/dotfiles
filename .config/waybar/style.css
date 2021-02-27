@@ -12,8 +12,8 @@ window#waybar {
 }
 
 #window {
-    font-weight: bold;
     font-family: "Ubuntu";
+    margin-top: 5px;
 }
 
 /*
