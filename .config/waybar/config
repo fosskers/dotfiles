@@ -4,10 +4,13 @@
     "height": 24,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
+    "modules-right": ["tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-click": true,
+    },
+    "tray": {
+        "spacing": 10,
     },
     "clock": {
         "format": "{:%Y %b %d %R}"

@@ -34,7 +34,7 @@ window#waybar {
     border-top: 2px solid white;
 }
 
-#custom-japan, #temperature, #clock, #battery, #cpu, #memory, #network, #pulseaudio {
+#tray, #custom-japan, #temperature, #clock, #battery, #cpu, #memory, #network, #pulseaudio {
     padding: 0 5px;
     margin-right: 5px;
     margin-top: 5px;

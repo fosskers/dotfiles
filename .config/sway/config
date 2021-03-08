@@ -225,6 +225,7 @@ focus_follows_mouse no
 gaps inner 10
 default_border pixel 3
 # swaymsg border pixel 3
+exec_always fcitx5 -d --replace
 
 #
 # Status Bar:
