@@ -6,7 +6,7 @@ set -x JAVA_HOME '/usr/lib/jvm/default'
 
 # Wayland
 set -x MOZ_ENABLE_WAYLAND 1
-set -x QT_QPA_PLATFORM 'wayland-egl'
+# set -x QT_QPA_PLATFORM 'wayland-egl'
 set -x SDL_VIDEODRIVER 'wayland'
 # set -x SDL_VIDEODRIVER 'x11'
 
