@@ -34,7 +34,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '((keyboard-layout :variables kl-layout 'colemak-hnei)
      (lsp :variables lsp-rust-server 'rust-analyzer)
-     (org :variables org-enable-github-support t)
      (terraform :variables terraform-auto-format-on-save t)
      auto-completion
      c-c++
@@ -52,6 +51,12 @@ This function should only modify configuration layer settings."
      version-control
      yaml
      ;; Main programming languages
+     (org :variables
+          org-brain-path "/home/colin/sync/brain/"
+          org-priority-highest 0
+          org-priority-lowest 10
+          org-priority-default 10
+          org-enable-github-support t)
      (rust :variables rust-format-on-save t)
      (haskell :variables
               haskell-completion-backend 'lsp
