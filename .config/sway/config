@@ -208,17 +208,20 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 bindsym $mod+m move workspace to output right
 
-input "1:1:AT_Translated_Set_2_keyboard" {
+input * {
     xkb_layout "us"
     xkb_variant "colemak"
-    # xkb_model "pc104"
 }
 
-input "1241:361:USB_Keyboard" {
-    xkb_layout "us"
-    xkb_variant "colemak"
-    # xkb_model "pc104"
-}
+# input "1:1:AT_Translated_Set_2_keyboard" {
+#     xkb_layout "us"
+#     xkb_variant "colemak"
+# }
+
+# input "1241:361:USB_Keyboard" {
+#     xkb_layout "us"
+#     xkb_variant "colemak"
+# }
 
 # Personal settings
 focus_follows_mouse no
