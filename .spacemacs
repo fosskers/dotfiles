@@ -41,7 +41,11 @@ This function should only modify configuration layer settings."
      epub
      git
      helm
-     html
+     (html :variables
+           web-fmt-tool 'prettier
+           css-enable-lsp t
+           scss-enable-lsp t
+           html-enable-lsp t)
      java
      javascript
      latex
@@ -53,15 +57,21 @@ This function should only modify configuration layer settings."
      ;; Main programming languages
      (org :variables
           org-brain-path "/home/colin/sync/brain/"
-          org-priority-highest 0
+          org-priority-highest 1
           org-priority-lowest 10
           org-priority-default 10
+          ;; org-enable-valign t
           org-enable-github-support t)
-     (rust :variables rust-format-on-save t)
+     (rust :variables
+           lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
+           rust-format-on-save t)
      (haskell :variables
               haskell-completion-backend 'lsp
-              lsp-haskell-process-path-hie "haskell-language-server-wrapper"
+              ;; lsp-haskell-process-path-hie "haskell-language-server-wrapper"
               haskell-stylish-on-save t)
+     (typescript :variables
+                 typescript-fmt-tool 'prettier
+                 typescript-fmt-on-save t)
      (go :variables
          go-format-before-save t
          go-backend 'lsp
@@ -561,10 +571,17 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(comp-async-report-warnings-errors nil)
  '(evil-want-Y-yank-to-eol nil)
- '(org-agenda-files '("~/sync/japan/japan.org" "~/sync/colin.org"))
+ '(lsp-clients-deno-config "/home/colin/code/typescript/loveletter/tsconfig.json")
+ '(org-agenda-files
+   '("~/code/haskell/real-world-software-dev/course.org" "~/contracting/upwork.org" "~/sync/japan/japan.org" "~/sync/colin.org"))
+ '(org-agenda-start-on-weekday 0)
+ '(org-agenda-todo-ignore-deadlines 'all)
+ '(org-agenda-todo-ignore-scheduled 'all)
  '(package-selected-packages
-   '(web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css counsel swiper ivy company-web web-completion-data add-node-modules-path pkgbuild-mode yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle ron-mode restart-emacs rainbow-delimiters racer prettier-js popwin pcre2el password-generator paradox ox-gfm overseer orgit org-superstar org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file nodejs-repl nameless move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-haskell lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc intero insert-shebang indent-guide hybrid-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-haskell flycheck-elsa flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word dap-mode dante company-terraform company-shell company-go company-ghci company-ghc company-cabal column-enforce-mode cmm-mode clean-aindent-mode centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile attrap aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
+   '(web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css counsel swiper ivy company-web web-completion-data add-node-modules-path pkgbuild-mode yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle ron-mode restart-emacs rainbow-delimiters racer prettier-js popwin pcre2el password-generator paradox ox-gfm overseer orgit org-superstar org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file nodejs-repl nameless move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-haskell lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc intero insert-shebang indent-guide hybrid-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-haskell flycheck-elsa flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word dap-mode dante company-terraform company-shell company-go company-ghci company-ghc company-cabal column-enforce-mode cmm-mode clean-aindent-mode centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile attrap aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+ '(visible-cursor nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
