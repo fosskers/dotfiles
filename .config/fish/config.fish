@@ -1,4 +1,4 @@
-set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/code/go/bin' '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin'
+set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/code/go/bin' '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin' '/home/colin/.emacs.d/bin'
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
 set -x EDITOR "emacs"
@@ -67,3 +67,5 @@ end
 function gl
   git log --graph --show-signature
 end
+
+starship init fish | source

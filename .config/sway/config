@@ -211,6 +211,7 @@ bindsym $mod+m move workspace to output right
 input * {
     xkb_layout "us"
     xkb_variant "colemak"
+    xkb_options "ctrl:nocaps"
 }
 
 # input "1:1:AT_Translated_Set_2_keyboard" {

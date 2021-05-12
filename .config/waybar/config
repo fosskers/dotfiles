@@ -13,7 +13,7 @@
         "spacing": 10,
     },
     "clock": {
-        "format": "{:%Y %b %d %R}"
+        "format": "{:%a %Y %b %d %R}"
     },
     "custom/japan": {
         "format": "{}",
