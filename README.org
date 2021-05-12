@@ -1,3 +1,6 @@
 #+TITLE: Dotfiles
 
 These are my dotfiles.
+
+For more information on how these config files can be used to achieve a full
+Wayland setup on Linux, [[https://www.fosskers.ca/en/blog/wayland][see this blog post]].
