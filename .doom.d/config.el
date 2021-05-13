@@ -33,35 +33,35 @@
 
 ;; --- KEYBOARD --- ;;
 (after! evil
-  (map! :n "l" 'evil-insert
-        :n "L" 'evil-insert-line
-        :nv "h" 'evil-backward-char
-        :nv "i" 'evil-forward-char
-        :nv "n" 'evil-next-line
-        :nv "e" 'evil-previous-line
-        :nv "k" 'evil-forward-word-end
-        :n "N" 'evil-join
-        :n "j" 'evil-ex-search-next))
+  (map! :n "l" #'evil-insert
+        :n "L" #'evil-insert-line
+        :nv "h" #'evil-backward-char
+        :nv "i" #'evil-forward-char
+        :nv "n" #'evil-next-line
+        :nv "e" #'evil-previous-line
+        :nv "k" #'evil-forward-word-end
+        :n "N" #'evil-join
+        :n "j" #'evil-ex-search-next))
 
 (after! magit
   (map! :map magit-mode-map
-        :n "n" 'magit-next-line
-        :n "e" 'magit-previous-line))
+        :n "n" #'magit-next-line
+        :n "e" #'magit-previous-line))
 
 (map! :map evil-org-agenda-mode-map
-      :m "n" 'org-agenda-next-line
-      :m "e" 'org-agenda-previous-line
-      :m "d" 'org-agenda-day-view
-      :m "w" 'org-agenda-week-view)
+      :m "n" #'org-agenda-next-line
+      :m "e" #'org-agenda-previous-line
+      :m "d" #'org-agenda-day-view
+      :m "w" #'org-agenda-week-view)
 
 ;; To restore Spacemacs-like window switching.
-(map! :leader "1" 'winum-select-window-1
-      :leader "2" 'winum-select-window-2
-      :leader "3" 'winum-select-window-3
-      :leader "4" 'winum-select-window-4)
+(map! :leader "1" #'winum-select-window-1
+      :leader "2" #'winum-select-window-2
+      :leader "3" #'winum-select-window-3
+      :leader "4" #'winum-select-window-4)
 
 ;; A quicker way to the Agenda view I want.
-(map! :leader "a" 'org-agenda-list)
+(map! :leader "a" #'org-agenda-list)
 
 ;; --- ORG MODE --- ;;
 (setq org-directory "~/sync/org/"
@@ -86,13 +86,18 @@
 (after! org-wild-notifier
   (setq org-wild-notifier-keyword-whitelist '()))
 
-;; (after! org-tree-slide
-;;   (setq org-tree-slide-skip-outline-level 0))
+(after! org-tree-slide
+  (map! :map org-tree-slide-mode-map
+        "<f9>" #'org-tree-slide-move-previous-tree
+        "<f10>" #'org-tree-slide-move-next-tree)
+  (setq org-tree-slide-activate-message "発表開始"
+        org-tree-slide-deactivate-message "発表終了"
+        org-tree-slide-modeline-display nil))
 ;; (org-tree-slide-presentation-profile))
 
 ;; --- MAGIT --- ;;
 (after! magit
-  (setq magit-display-buffer-function 'magit-display-buffer-traditional))
+  (setq magit-display-buffer-function #'magit-display-buffer-traditional))
 
 ;; --- PROGRAMMING --- ;;
 (after! haskell-mode
