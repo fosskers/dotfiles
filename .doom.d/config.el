@@ -77,15 +77,39 @@
         org-agenda-span 8
         org-agenda-start-on-weekday 0
         org-agenda-start-day "-Sun"
+        org-hide-emphasis-markers t
         org-modules '(ol-bibtex org-habit))
+  (org-wild-notifier-mode)
+  (org-appear-mode)
   (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5))
+
+(after! org-wild-notifier
+  (setq org-wild-notifier-keyword-whitelist '()))
+
+;; (after! org-tree-slide
+;;   (setq org-tree-slide-skip-outline-level 0))
+;; (org-tree-slide-presentation-profile))
 
 ;; --- MAGIT --- ;;
 (after! magit
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
 
+;; --- PROGRAMMING --- ;;
+(after! haskell-mode
+  (setq haskell-stylish-on-save t))
+
+(after! web-mode
+  (set-formatter! 'html-tidy
+    '("prettier"
+      "--parser" "html"
+      "--loglevel" "silent"
+      "--no-bracket-spacing"
+      "--jsx-bracket-same-line"
+      )))
+
 ;; --- MISC. --- ;;
-(setq +format-on-save-enabled-modes t)
+(setq alert-default-style 'notifications)
+(setq +format-on-save-enabled-modes '())
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

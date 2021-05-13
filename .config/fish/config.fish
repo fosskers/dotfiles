@@ -3,6 +3,7 @@ set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/
 set -x PKG_CONFIG_ALLOW_CROSS 1
 set -x EDITOR "emacs"
 set -x JAVA_HOME '/usr/lib/jvm/default'
+set -x DOOMDIR '/home/colin/dotfiles/.doom.d'
 
 # Wayland
 set -x MOZ_ENABLE_WAYLAND 1

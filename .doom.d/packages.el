@@ -41,6 +41,15 @@
 
 (package! org-roam :pin "9065f6a")
 
+(package! org-tree-slide
+  :recipe (:host github :repo "takaxp/org-tree-slide"))
+
+(package! org-wild-notifier
+  :recipe (:host github :repo "akhramov/org-wild-notifier.el"))
+
+(package! org-appear
+  :recipe (:host github :repo "awth13/org-appear"))
+
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;;(unpin! pinned-package)
