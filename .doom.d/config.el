@@ -80,7 +80,7 @@
         org-hide-emphasis-markers t
         org-modules '(ol-bibtex org-habit))
   (org-wild-notifier-mode)
-  (org-appear-mode)
+  (add-hook 'org-mode-hook #'org-appear-mode)
   (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5))
 
 (after! org-wild-notifier
@@ -94,6 +94,9 @@
         org-tree-slide-deactivate-message "発表終了"
         org-tree-slide-modeline-display nil))
 ;; (org-tree-slide-presentation-profile))
+
+(after! org-roam
+  (setq org-roam-verbose t))
 
 ;; --- MAGIT --- ;;
 (after! magit
@@ -112,9 +115,14 @@
       "--jsx-bracket-same-line"
       )))
 
+;; --- FINANCE --- ;;
+(add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
+(after! hledger-mode
+  (setq hledger-jfile "/home/colin/sync/life/finances/finances.journal"))
+
 ;; --- MISC. --- ;;
 (setq alert-default-style 'notifications)
-(setq +format-on-save-enabled-modes '())
+(setq +format-on-save-enabled-modes t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
