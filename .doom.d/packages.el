@@ -50,6 +50,12 @@
 (package! org-appear
   :recipe (:host github :repo "awth13/org-appear"))
 
+(package! org-mru-clock
+  :recipe (:host github :repo "unhammer/org-mru-clock"))
+
+(package! hledger-mode
+  :recipe (:host github :repo "narendraj9/hledger-mode"))
+
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;;(unpin! pinned-package)

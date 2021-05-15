@@ -78,7 +78,9 @@
         org-agenda-start-on-weekday 0
         org-agenda-start-day "-Sun"
         org-hide-emphasis-markers t
+        org-mru-clock-files #'org-agenda-files
         org-modules '(ol-bibtex org-habit))
+  (map! :leader "C" #'org-mru-clock-in)
   (org-wild-notifier-mode)
   (add-hook 'org-mode-hook #'org-appear-mode)
   (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5))
