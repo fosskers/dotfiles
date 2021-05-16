@@ -31,7 +31,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
-;; --- KEYBOARD --- ;;
+;; --- KEY BINDINGS --- ;;
 (after! evil
   (map! :n "l" #'evil-insert
         :n "L" #'evil-insert-line
@@ -67,7 +67,9 @@
 (map! :leader "C" #'org-mru-clock-in)
 
 ;; Easy opening terminals.
-(map! :leader "T" #'colin/terminal-over-there)
+(map! :leader "T" #'colin/terminal-over-there
+      :leader "V" #'colin/new-terminal-over-there
+      :leader "S" #'colin/new-terminal-down-there)
 
 ;; --- ORG MODE --- ;;
 (setq org-directory "~/sync/org/"
@@ -133,17 +135,32 @@
 ;; --- CUSTOM FUNCTIONS --- ;;
 
 (defun colin/terminal-over-there ()
-  "Split the window vertically and either open an existing `*vterm'
-buffer or open a new terminal there."
+  "Split the window vertically and either open an existing
+`*vterm*' buffer or open a new terminal there."
+  (interactive)
+  ;; There probably won't ever be more than 3 terminals open.
+  (let ((term (colin/vterm-buffers)))
+    (if term
+        (progn
+          (+evil/window-vsplit-and-follow)
+          (switch-to-buffer (car term)))
+      (colin/new-terminal-over-there))))
+
+(defun colin/new-terminal-over-there ()
+  "Split the window vertically and open a new terminal there."
   (interactive)
   (+evil/window-vsplit-and-follow)
-  ;; There probably won't ever be more than 3 terminals open.
-  (let ((term (or (get-buffer "*vterm*")
-                  (get-buffer "*vterm*<2>")
-                  (get-buffer "*vterm*<3>"))))
-    (if term
-        (switch-to-buffer term)
-      (+vterm/here nil))))
+  (+vterm/here nil))
+
+(defun colin/new-terminal-down-there ()
+  "Split the window horizontally and open a new terminal there."
+  (interactive)
+  (+evil/window-split-and-follow)
+  (+vterm/here nil))
+
+(defun colin/vterm-buffers ()
+  "All currently open `*vterm*' buffers."
+  (doom-matching-buffers "^\\*vterm\\*"))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
