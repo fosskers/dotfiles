@@ -63,6 +63,12 @@
 ;; A quicker way to the Agenda view I want.
 (map! :leader "a" #'org-agenda-list)
 
+;; Easy clocking in.
+(map! :leader "C" #'org-mru-clock-in)
+
+;; Easy opening terminals.
+(map! :leader "T" #'colin/terminal-over-there)
+
 ;; --- ORG MODE --- ;;
 (setq org-directory "~/sync/org/"
       org-roam-directory "/home/colin/sync/org-roam"
@@ -80,7 +86,6 @@
         org-hide-emphasis-markers t
         org-mru-clock-files #'org-agenda-files
         org-modules '(ol-bibtex org-habit))
-  (map! :leader "C" #'org-mru-clock-in)
   (org-wild-notifier-mode)
   (add-hook 'org-mode-hook #'org-appear-mode)
   (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5))
@@ -114,8 +119,7 @@
       "--parser" "html"
       "--loglevel" "silent"
       "--no-bracket-spacing"
-      "--jsx-bracket-same-line"
-      )))
+      "--jsx-bracket-same-line")))
 
 ;; --- FINANCE --- ;;
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
@@ -129,12 +133,17 @@
 ;; --- CUSTOM FUNCTIONS --- ;;
 
 (defun colin/terminal-over-there ()
-  "Split the window vertically and open a new terminal there."
+  "Split the window vertically and either open an existing `*vterm'
+buffer or open a new terminal there."
   (interactive)
   (+evil/window-vsplit-and-follow)
-  (+vterm/here nil))
-
-(map! :leader "T" #'colin/terminal-over-there)
+  ;; There probably won't ever be more than 3 terminals open.
+  (let ((term (or (get-buffer "*vterm*")
+                  (get-buffer "*vterm*<2>")
+                  (get-buffer "*vterm*<3>"))))
+    (if term
+        (switch-to-buffer term)
+      (+vterm/here nil))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
