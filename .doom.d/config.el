@@ -126,6 +126,16 @@
 (setq alert-default-style 'notifications)
 (setq +format-on-save-enabled-modes t)
 
+;; --- CUSTOM FUNCTIONS --- ;;
+
+(defun colin/terminal-over-there ()
+  "Split the window vertically and open a new terminal there."
+  (interactive)
+  (+evil/window-vsplit-and-follow)
+  (+vterm/here nil))
+
+(map! :leader "T" #'colin/terminal-over-there)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
