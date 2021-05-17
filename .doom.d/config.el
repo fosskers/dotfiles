@@ -64,7 +64,10 @@
 (map! :leader "a" #'org-agenda-list)
 
 ;; Easy clocking in.
-(map! :leader "C" #'org-mru-clock-in)
+(map! :leader "I" #'org-mru-clock-in)
+
+;; Easy code commenting.
+(map! :leader "C" #'comment-line)
 
 ;; Easy opening terminals.
 (map! :leader "T" #'colin/terminal-over-there
@@ -138,7 +141,6 @@
   "Split the window vertically and either open an existing
 `*vterm*' buffer or open a new terminal there."
   (interactive)
-  ;; There probably won't ever be more than 3 terminals open.
   (let ((term (colin/vterm-buffers)))
     (if term
         (progn
