@@ -85,7 +85,7 @@
 (after! org
   (setq org-todo-keywords '("TODO" "STARTED" "DONE")
         org-log-done 'time
-        org-agenda-span 8
+        org-agenda-span 7
         org-agenda-start-on-weekday 0
         org-agenda-start-day "-Sun"
         org-hide-emphasis-markers t
@@ -163,6 +163,12 @@
 (defun colin/vterm-buffers ()
   "All currently open `*vterm*' buffers."
   (doom-matching-buffers "^\\*vterm\\*"))
+
+(defun colin/insert-date ()
+  "Insert the DateTime at `point'."
+  (interactive)
+  (let ((time (format-time-string "%Y-%m-%d %H:%M:%S %Z")))
+    (insert time)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
