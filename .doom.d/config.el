@@ -74,6 +74,8 @@
       :leader "V" #'colin/new-terminal-over-there
       :leader "S" #'colin/new-terminal-down-there)
 
+(map! :leader "w G" #'colin/window-go-home)
+
 ;; --- ORG MODE --- ;;
 (setq org-directory "~/sync/org/"
       org-roam-directory "/home/colin/sync/org-roam"
@@ -169,6 +171,20 @@
   (interactive)
   (let ((time (format-time-string "%Y-%m-%d %H:%M:%S %Z")))
     (insert time)))
+
+(defun colin/window-go-home ()
+  "Returns a buffer in a torn-off frame to another.
+Does nothing if there is only one frame open."
+  (interactive)
+  (let ((buffer (current-buffer))
+        (this-frame (window-frame))
+        (that-frame (next-frame)))
+    (when (not (eq this-frame that-frame))
+      (let ((window (frame-root-window that-frame)))
+        (when window
+          (evil-quit) ; Closes the window and its frame if it was the last one.
+          (split-window window nil 'left nil)
+          (set-window-buffer window buffer))))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
