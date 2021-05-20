@@ -187,12 +187,23 @@ Does nothing if there is only one frame open."
   (let ((buffer (current-buffer))
         (this-frame (window-frame))
         (that-frame (next-frame)))
-    (when (not (eq this-frame that-frame))
+    (unless (eq this-frame that-frame)
       (let ((window (frame-root-window that-frame)))
         (when window
           (evil-quit) ; Closes the window and its frame if it was the last one.
           (split-window window nil 'left nil)
           (set-window-buffer window buffer))))))
+
+(defun colin/kin-graph (kanji)
+  "Produce a `kanji-net' graph based on KANJI and open it in a new
+buffer."
+  (interactive "sKanji: ")
+  (message "You gave: %s" kanji)
+  (let* ((data "/home/colin/code/rust/kanji-net/data.json")
+         (outpath "/tmp/graph.png")
+         (res (doom-call-process "kin" "--data" data "graph" kanji "--output" outpath)))
+    (when (= 0 (car res))
+      (find-file-read-only outpath))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
