@@ -76,6 +76,10 @@
 
 (map! :leader "w G" #'colin/window-go-home)
 
+;; Flycheck bindings from Spacemacs.
+(map! :leader "e n" #'flycheck-next-error
+      :leader "e N" #'flycheck-previous-error)
+
 ;; --- ORG MODE --- ;;
 (setq org-directory "~/sync/org/"
       org-roam-directory "/home/colin/sync/org-roam"
@@ -128,6 +132,10 @@
       "--no-bracket-spacing"
       "--jsx-bracket-same-line")))
 
+;; Unbreak LSP
+(after! lsp-ui
+  (setq lsp-ui-doc-enable nil))
+
 ;; --- FINANCE --- ;;
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
 (after! hledger-mode
@@ -135,7 +143,7 @@
 
 ;; --- MISC. --- ;;
 (setq alert-default-style 'notifications)
-(setq +format-on-save-enabled-modes t)
+(setq +format-on-save-enabled-modes '(not c-mode))
 
 ;; --- CUSTOM FUNCTIONS --- ;;
 
