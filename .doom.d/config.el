@@ -133,6 +133,7 @@
       "--jsx-bracket-same-line")))
 
 ;; Unbreak LSP
+;; See: https://github.com/emacs-lsp/lsp-ui/issues/613
 (after! lsp-ui
   (setq lsp-ui-doc-enable nil))
 
@@ -199,9 +200,8 @@ Does nothing if there is only one frame open."
 buffer."
   (interactive "sKanji: ")
   (message "You gave: %s" kanji)
-  (let* ((data "/home/colin/code/rust/kanji-net/data.json")
-         (outpath "/tmp/graph.png")
-         (res (doom-call-process "kin" "--data" data "graph" kanji "--output" outpath)))
+  (let* ((outpath "/tmp/graph.png")
+         (res (doom-call-process "kin" "graph" kanji "--output" outpath)))
     (when (= 0 (car res))
       (find-file-read-only outpath))))
 
