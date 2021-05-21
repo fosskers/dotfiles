@@ -205,6 +205,17 @@ buffer."
     (when (= 0 (car res))
       (find-file-read-only outpath))))
 
+(defun colin/upwork-earnings (rate hours usd-to-cad)
+  "Estimated earnings for an hourly job on Upwork."
+  (let* ((gross (* rate hours))
+         (usd (cond ((<= gross 500.0) (* gross 0.8))
+                    ((<= gross 10000.0) (+ (* 0.8 500)
+                                           (* 0.9 (- gross 500.0))))
+                    (t (+ (* 0.8 500)
+                          (* 0.9 9500)
+                          (* 0.95 (- gross 10000.0)))))))
+    (round (* usd usd-to-cad))))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
