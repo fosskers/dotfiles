@@ -32,21 +32,21 @@
 (setq display-line-numbers-type nil)
 
 ;; --- KEY BINDINGS --- ;;
-(after! evil
-  (map! :n "l" #'evil-insert
-        :n "L" #'evil-insert-line
-        :nv "h" #'evil-backward-char
-        :nv "i" #'evil-forward-char
-        :nv "n" #'evil-next-line
-        :nv "e" #'evil-previous-line
-        :nv "k" #'evil-forward-word-end
-        :n "N" #'evil-join
-        :n "j" #'evil-ex-search-next))
+(map! :after evil
+      :n "l" #'evil-insert
+      :n "L" #'evil-insert-line
+      :nv "h" #'evil-backward-char
+      :nv "i" #'evil-forward-char
+      :nv "n" #'evil-next-line
+      :nv "e" #'evil-previous-line
+      :nv "k" #'evil-forward-word-end
+      :n "N" #'evil-join
+      :n "j" #'evil-ex-search-next)
 
-(after! magit
-  (map! :map magit-mode-map
-        :n "n" #'magit-next-line
-        :n "e" #'magit-previous-line))
+(map! :map magit-mode-map
+      :after magit
+      :n "n" #'magit-next-line
+      :n "e" #'magit-previous-line)
 
 (map! :map evil-org-agenda-mode-map
       :m "n" #'org-agenda-next-line
@@ -111,10 +111,6 @@
   (setq org-tree-slide-activate-message "発表開始"
         org-tree-slide-deactivate-message "発表終了"
         org-tree-slide-modeline-display nil))
-;; (org-tree-slide-presentation-profile))
-
-(after! org-roam
-  (setq org-roam-verbose t))
 
 ;; --- MAGIT --- ;;
 (after! magit
@@ -132,10 +128,8 @@
       "--no-bracket-spacing"
       "--jsx-bracket-same-line")))
 
-;; Unbreak LSP
-;; See: https://github.com/emacs-lsp/lsp-ui/issues/613
-(after! lsp-ui
-  (setq lsp-ui-doc-enable nil))
+;; (after! lsp-mode
+;;   (setq lsp-headerline-breadcrumb-enable t))
 
 ;; --- FINANCE --- ;;
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
@@ -160,13 +154,17 @@
       (colin/new-terminal-over-there))))
 
 (defun colin/new-terminal-over-there ()
-  "Split the window vertically and open a new terminal there."
+  "Split the window vertically and open a new terminal there.
+
+Return the created buffer."
   (interactive)
   (+evil/window-vsplit-and-follow)
   (+vterm/here nil))
 
 (defun colin/new-terminal-down-there ()
-  "Split the window horizontally and open a new terminal there."
+  "Split the window horizontally and open a new terminal there.
+
+Return the created buffer."
   (interactive)
   (+evil/window-split-and-follow)
   (+vterm/here nil))
@@ -196,8 +194,10 @@ Does nothing if there is only one frame open."
           (set-window-buffer window buffer))))))
 
 (defun colin/kin-graph (kanji)
-  "Produce a `kanji-net' graph based on KANJI and open it in a new
-buffer."
+  "Produce a `kanji-net' graph based on KANJI and open it in a new buffer.
+
+You can pass as many Kanji as you want as a single string. Spaces
+aren't necessary, but will be accounted for on kin's end."
   (interactive "sKanji: ")
   (message "You gave: %s" kanji)
   (let* ((outpath "/tmp/graph.png")
@@ -206,7 +206,11 @@ buffer."
       (find-file-read-only outpath))))
 
 (defun colin/upwork-earnings (rate hours usd-to-cad)
-  "Estimated earnings for an hourly job on Upwork."
+  "Estimate earnings for an hourly job on Upwork.
+
+Given an hourly RATE and the HOURS to be worked, projects a final
+pay amount with the Upwork cuts taken off. Applies a USD-TO-CAD
+conversion rate at the end."
   (let* ((gross (* rate hours))
          (usd (cond ((<= gross 500.0) (* gross 0.8))
                     ((<= gross 10000.0) (+ (* 0.8 500)
@@ -215,6 +219,18 @@ buffer."
                           (* 0.9 9500)
                           (* 0.95 (- gross 10000.0)))))))
     (round (* usd usd-to-cad))))
+
+(defun colin/rust-seed ()
+  "When invoked from a Seed project, serve the server and open `cargo watch'."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (colin/new-terminal-over-there)
+    (vterm-send-string "cargo make serve")
+    (vterm-send-return)
+    (colin/new-terminal-down-there)
+    (vterm-send-string "cargo make watch")
+    (vterm-send-return)
+    (switch-to-buffer-other-window buffer)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
