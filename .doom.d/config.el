@@ -125,6 +125,8 @@
 
 ;; --- PROGRAMMING --- ;;
 
+(setq +format-on-save-enabled-modes '(not c-mode))
+
 (after! haskell-mode
   (setq haskell-stylish-on-save t))
 
@@ -156,7 +158,6 @@
 ;; --- MISC. --- ;;
 
 (setq alert-default-style 'notifications)
-(setq +format-on-save-enabled-modes '(not c-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

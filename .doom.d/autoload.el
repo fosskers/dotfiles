@@ -16,7 +16,7 @@
 (defun colin/new-terminal-over-there ()
   "Split the window vertically and open a new terminal there.
 
-Return the created buffer."
+Returns the created buffer."
   (interactive)
   (+evil/window-vsplit-and-follow)
   (+vterm/here nil))
@@ -25,7 +25,7 @@ Return the created buffer."
 (defun colin/new-terminal-down-there ()
   "Split the window horizontally and open a new terminal there.
 
-Return the created buffer."
+Returns the created buffer."
   (interactive)
   (+evil/window-split-and-follow)
   (+vterm/here nil))
@@ -95,25 +95,27 @@ Sanitizes the input to consolidate leading/trailing dots.
 Returns `nil' if either of the file or extension are `nil' before
 sanitizing, or empty afterwards."
   (when (and file extension)
-    (let* ((patt "[ \\t\\n\\r.]+") ; Borrowed from `string-trim'.
+    (let* ((patt "[ \t\n\r.]+") ; Borrowed from `string-trim'.
            (file (string-trim-right file patt))
            (extension (string-trim-left extension patt)))
       (unless (or (string-empty-p file)
                   (string-empty-p extension))
         (concat (file-name-sans-extension file) "." extension)))))
 
-;; TODO Consider `+vterm/toggle'.
 ;;;###autoload
 (defun colin/seed ()
-  "When invoked from a Seed project, serve the server and open `cargo watch'."
+  "When invoked from a Seed project, serve the server and open `cargo watch'.
+Also runs a `sass --watch' process if it detects a main `.scss' file."
   (interactive)
   (let ((buffer (current-buffer)))
+    ;; TODO Consider `+vterm/toggle'.
     (colin/new-terminal-over-there)
     (vterm-send-string "cargo make serve")
     (vterm-send-return)
     (colin/new-terminal-down-there)
     (vterm-send-string "cargo make watch")
     (vterm-send-return)
+    ;; TODO Considering `dolist' over every `.scss' it can find.
     (when-let* ((css-files (colin/seed--css))
                 (scss (colin/seed--scss-file css-files))
                 (css (colin/file-set-extension scss "css"))
@@ -141,10 +143,27 @@ Returns nil otherwise."
 ;;;###autoload
 (defun colin/vterm-kill-window-on-exit (buffer _event)
   "Kill the entire window when a `vterm' process exits.
-Does nothing if there is only one window left."
+Does nothing if there is only one window left.
+
+The arguments are the way they are because of the requirements of
+`vterm-exit-functions', to which this function here is passed as
+a hook."
   (let ((window-count (length (window-list))))
     (when (> window-count 1)
       (delete-window (get-buffer-window buffer)))))
+
+;;;###autoload
+(defun colin/cargo-watch ()
+  "Open a `cargo watch' session."
+  (interactive)
+  (when (+rust-cargo-project-p)
+    (let ((buffer (current-buffer)))
+      (colin/new-terminal-over-there)
+      (vterm-send-string "cargo watch -c -q")
+      (vterm-send-return)
+      (switch-to-buffer-other-window buffer))))
+
+;; --- DEBUGGING --- ;;
 
 ;;;###autoload
 (defun bug/switch-frame ()
