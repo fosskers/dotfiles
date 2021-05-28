@@ -32,6 +32,7 @@
 (setq display-line-numbers-type nil)
 
 ;; --- KEY BINDINGS --- ;;
+
 (map! :after evil
       :n "l" #'evil-insert
       :n "L" #'evil-insert-line
@@ -58,7 +59,9 @@
 (map! :leader "1" #'winum-select-window-1
       :leader "2" #'winum-select-window-2
       :leader "3" #'winum-select-window-3
-      :leader "4" #'winum-select-window-4)
+      :leader "4" #'winum-select-window-4
+      :leader "5" #'winum-select-window-5
+      :leader "6" #'winum-select-window-6)
 
 ;; A quicker way to the Agenda view I want.
 (map! :leader "a" #'org-agenda-list)
@@ -81,9 +84,13 @@
       :leader "e N" #'flycheck-previous-error)
 
 ;; --- ORG MODE --- ;;
+
 (setq org-directory "~/sync/org/"
       org-roam-directory "/home/colin/sync/org-roam"
       org-agenda-files '("/home/colin/sync/colin.org"
+                         "/home/colin/sync/org/2021.org"
+                         "/home/colin/sync/org/coding.org"
+                         "/home/colin/sync/org/sysadmin.org"
                          "/home/colin/contracting/upwork.org"
                          "/home/colin/code/haskell/real-world-software-dev/course.org"
                          "/home/colin/sync/japan/japan.org"))
@@ -113,30 +120,42 @@
         org-tree-slide-modeline-display nil))
 
 ;; --- MAGIT --- ;;
+
 (after! magit
   (setq magit-display-buffer-function #'magit-display-buffer-traditional))
 
 ;; --- PROGRAMMING --- ;;
+
 (after! haskell-mode
   (setq haskell-stylish-on-save t))
 
-(after! web-mode
-  (set-formatter! 'html-tidy
-    '("prettier"
-      "--parser" "html"
-      "--loglevel" "silent"
-      "--no-bracket-spacing"
-      "--jsx-bracket-same-line")))
+(after! lsp-haskell
+  (setq lsp-haskell-formatting-provider "stylish-haskell"))
+
+;; (after! web-mode
+;;   (set-formatter! 'html-tidy
+;;     '("prettier"
+;;       "--parser" "html"
+;;       "--loglevel" "silent"
+;;       "--no-bracket-spacing"
+;;       "--jsx-bracket-same-line")))
 
 ;; (after! lsp-mode
 ;;   (setq lsp-headerline-breadcrumb-enable t))
 
+;; --- VTERM --- ;;
+
+(after! vterm
+  (add-hook 'vterm-exit-functions #'colin/vterm-kill-window-on-exit))
+
 ;; --- FINANCE --- ;;
+
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
 (after! hledger-mode
   (setq hledger-jfile "/home/colin/sync/life/finances/finances.journal"))
 
 ;; --- MISC. --- ;;
+
 (setq alert-default-style 'notifications)
 (setq +format-on-save-enabled-modes '(not c-mode))
 
@@ -146,11 +165,11 @@
   "Split the window vertically and either open an existing
 `*vterm*' buffer or open a new terminal there."
   (interactive)
-  (let ((term (colin/vterm-buffers)))
-    (if term
+  (let ((terms (colin/vterm-buffers)))
+    (if terms
         (progn
           (+evil/window-vsplit-and-follow)
-          (switch-to-buffer (car term)))
+          (switch-to-buffer (car terms)))
       (colin/new-terminal-over-there))))
 
 (defun colin/new-terminal-over-there ()
@@ -220,6 +239,21 @@ conversion rate at the end."
                           (* 0.95 (- gross 10000.0)))))))
     (round (* usd usd-to-cad))))
 
+(defun colin/file-set-extension (file extension)
+  "Change the extension of a FILE to EXTENSION.
+
+Sanitizes the input to consolidate leading/trailing dots.
+
+Returns `nil' if either of the file or extension are `nil' before
+sanitizing, or empty afterwards."
+  (when (and file extension)
+    (let* ((patt "[ \\t\\n\\r.]+") ; Borrowed from `string-trim'.
+           (file (string-trim-right file patt))
+           (extension (string-trim-left extension patt)))
+      (unless (or (string-empty-p file)
+                  (string-empty-p extension))
+        (concat (file-name-sans-extension file) "." extension)))))
+
 ;; TODO Consider `+vterm/toggle'.
 (defun colin/seed ()
   "When invoked from a Seed project, serve the server and open `cargo watch'."
@@ -233,7 +267,7 @@ conversion rate at the end."
     (vterm-send-return)
     (when-let* ((css-files (colin/seed--css))
                 (scss (colin/seed--scss-file css-files))
-                (css (doom-file-set-extension scss "css"))
+                (css (colin/file-set-extension scss "css"))
                 (cmd (format "sass --watch assets/css/%s assets/css/%s" scss css)))
       (colin/new-terminal-down-there)
       (vterm-send-string cmd)
@@ -252,6 +286,45 @@ Returns nil otherwise."
               (css (doom-path project-root "assets" "css")))
     (when (file-exists-p css)
       (directory-files css))))
+
+(defun colin/vterm-kill-window-on-exit (buffer _event)
+  "Kill the entire window when a `vterm' process exits.
+Does nothing if there is only one window left."
+  (let ((window-count (length (window-list))))
+    (when (> window-count 1)
+      (delete-window (get-buffer-window buffer)))))
+
+(defun bug/switch-frame ()
+  "Reproduce the frame switching bug on Wayland."
+  (interactive)
+  (let* ((orig-buffer (current-buffer))
+         (orig-window (get-buffer-window orig-buffer))
+         (orig-frame (window-frame orig-window))
+         (split-window (split-window-right))
+         (split-buffer (window-buffer split-window)))
+    (switch-to-buffer-other-window split-buffer)
+    (switch-to-buffer "*scratch*")
+    (tear-off-window nil)
+    (let* ((torn-window (get-buffer-window))
+           (torn-frame (window-frame))
+           (selected (selected-frame))
+           (next (next-frame)))
+      (message "Original Frame: %s" orig-frame)
+      (message "Torn Frame: %s" torn-frame)
+      (message "Selected Frame: %s" selected)
+      (message "Next Frame: %s" next)
+      (when (window-live-p orig-window)
+        (message "Original window is live."))
+      ;; (select-frame-set-input-focus orig-frame)
+      (select-window orig-window))))
+;; (select-frame-set-input-focus orig-frame))))
+;; (select-frame-set-input-focus next))))
+;; (switch-to-buffer-other-frame nil))))
+;; (switch-to-buffer-other-frame orig-buffer))))
+;; (princ orig-frame)
+;; (princ split-frame)
+;; (princ (frame-list))))
+;; (switch-to-buffer-other-frame orig-buffer)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
