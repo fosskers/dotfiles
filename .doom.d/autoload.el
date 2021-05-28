@@ -1,0 +1,180 @@
+;;; autoload.el -*- lexical-binding: t; -*-
+
+;;;###autoload
+(defun colin/terminal-over-there ()
+  "Split the window vertically and either open an existing
+`*vterm*' buffer or open a new terminal there."
+  (interactive)
+  (let ((terms (colin/vterm-buffers)))
+    (if terms
+        (progn
+          (+evil/window-vsplit-and-follow)
+          (switch-to-buffer (car terms)))
+      (colin/new-terminal-over-there))))
+
+;;;###autoload
+(defun colin/new-terminal-over-there ()
+  "Split the window vertically and open a new terminal there.
+
+Return the created buffer."
+  (interactive)
+  (+evil/window-vsplit-and-follow)
+  (+vterm/here nil))
+
+;;;###autoload
+(defun colin/new-terminal-down-there ()
+  "Split the window horizontally and open a new terminal there.
+
+Return the created buffer."
+  (interactive)
+  (+evil/window-split-and-follow)
+  (+vterm/here nil))
+
+;;;###autoload
+(defun colin/vterm-buffers ()
+  "All currently open `*vterm*' buffers."
+  (doom-matching-buffers "^\\*vterm\\*"))
+
+;;;###autoload
+(defun colin/insert-date ()
+  "Insert the DateTime at `point'."
+  (interactive)
+  (let ((time (format-time-string "%Y-%m-%d %H:%M:%S %Z")))
+    (insert time)))
+
+;;;###autoload
+(defun colin/window-go-home ()
+  "Returns a buffer in a torn-off frame to another.
+Does nothing if there is only one frame open."
+  (interactive)
+  (let ((buffer (current-buffer))
+        (this-frame (window-frame))
+        (that-frame (next-frame)))
+    (unless (eq this-frame that-frame)
+      (let ((window (frame-root-window that-frame)))
+        (when window
+          (evil-quit) ; Closes the window and its frame if it was the last one.
+          (split-window window nil 'left nil)
+          (set-window-buffer window buffer))))))
+
+;;;###autoload
+(defun colin/kin-graph (kanji)
+  "Produce a `kanji-net' graph based on KANJI and open it in a new buffer.
+
+You can pass as many Kanji as you want as a single string. Spaces
+aren't necessary, but will be accounted for on kin's end."
+  (interactive "sKanji: ")
+  (message "You gave: %s" kanji)
+  (let* ((outpath "/tmp/graph.png")
+         (res (doom-call-process "kin" "graph" kanji "--output" outpath)))
+    (when (= 0 (car res))
+      (find-file-read-only outpath))))
+
+;;;###autoload
+(defun colin/upwork-earnings (rate hours usd-to-cad)
+  "Estimate earnings for an hourly job on Upwork.
+
+Given an hourly RATE and the HOURS to be worked, projects a final
+pay amount with the Upwork cuts taken off. Applies a USD-TO-CAD
+conversion rate at the end."
+  (let* ((gross (* rate hours))
+         (usd (cond ((<= gross 500.0) (* gross 0.8))
+                    ((<= gross 10000.0) (+ (* 0.8 500)
+                                           (* 0.9 (- gross 500.0))))
+                    (t (+ (* 0.8 500)
+                          (* 0.9 9500)
+                          (* 0.95 (- gross 10000.0)))))))
+    (round (* usd usd-to-cad))))
+
+;;;###autoload
+(defun colin/file-set-extension (file extension)
+  "Change the extension of a FILE to EXTENSION.
+
+Sanitizes the input to consolidate leading/trailing dots.
+
+Returns `nil' if either of the file or extension are `nil' before
+sanitizing, or empty afterwards."
+  (when (and file extension)
+    (let* ((patt "[ \\t\\n\\r.]+") ; Borrowed from `string-trim'.
+           (file (string-trim-right file patt))
+           (extension (string-trim-left extension patt)))
+      (unless (or (string-empty-p file)
+                  (string-empty-p extension))
+        (concat (file-name-sans-extension file) "." extension)))))
+
+;; TODO Consider `+vterm/toggle'.
+;;;###autoload
+(defun colin/seed ()
+  "When invoked from a Seed project, serve the server and open `cargo watch'."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (colin/new-terminal-over-there)
+    (vterm-send-string "cargo make serve")
+    (vterm-send-return)
+    (colin/new-terminal-down-there)
+    (vterm-send-string "cargo make watch")
+    (vterm-send-return)
+    (when-let* ((css-files (colin/seed--css))
+                (scss (colin/seed--scss-file css-files))
+                (css (colin/file-set-extension scss "css"))
+                (cmd (format "sass --watch assets/css/%s assets/css/%s" scss css)))
+      (colin/new-terminal-down-there)
+      (vterm-send-string cmd)
+      (vterm-send-return))
+    (switch-to-buffer-other-window buffer)))
+
+;;;###autoload
+(defun colin/seed--scss-file (files)
+  "Given some FILES, extract the first `.scss' file it can find."
+  (car (-filter (lambda (file) (string= "scss" (file-name-extension file)))
+                files)))
+
+;;;###autoload
+(defun colin/seed--css ()
+  "The contents of `<project-root>/assets/css/', if it exists.
+Returns nil otherwise."
+  (when-let* ((project-root (doom-project-root))
+              (css (doom-path project-root "assets" "css")))
+    (when (file-exists-p css)
+      (directory-files css))))
+
+;;;###autoload
+(defun colin/vterm-kill-window-on-exit (buffer _event)
+  "Kill the entire window when a `vterm' process exits.
+Does nothing if there is only one window left."
+  (let ((window-count (length (window-list))))
+    (when (> window-count 1)
+      (delete-window (get-buffer-window buffer)))))
+
+;;;###autoload
+(defun bug/switch-frame ()
+  "Reproduce the frame switching bug on Wayland."
+  (interactive)
+  (let* ((orig-buffer (current-buffer))
+         (orig-window (get-buffer-window orig-buffer))
+         (orig-frame (window-frame orig-window))
+         (split-window (split-window-right))
+         (split-buffer (window-buffer split-window)))
+    (switch-to-buffer-other-window split-buffer)
+    (switch-to-buffer "*scratch*")
+    (tear-off-window nil)
+    (let* ((torn-window (get-buffer-window))
+           (torn-frame (window-frame))
+           (selected (selected-frame))
+           (next (next-frame)))
+      (message "Original Frame: %s" orig-frame)
+      (message "Torn Frame: %s" torn-frame)
+      (message "Selected Frame: %s" selected)
+      (message "Next Frame: %s" next)
+      (when (window-live-p orig-window)
+        (message "Original window is live."))
+      ;; (select-frame-set-input-focus orig-frame)
+      (select-window orig-window))))
+;; (select-frame-set-input-focus orig-frame))))
+;; (select-frame-set-input-focus next))))
+;; (switch-to-buffer-other-frame nil))))
+;; (switch-to-buffer-other-frame orig-buffer))))
+;; (princ orig-frame)
+;; (princ split-frame)
+;; (princ (frame-list))))
+;; (switch-to-buffer-other-frame orig-buffer)))
