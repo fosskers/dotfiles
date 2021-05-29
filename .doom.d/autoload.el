@@ -10,7 +10,7 @@
       ;; Kill any process that was running.
       (vterm-send-C-c)
       ;; C-d only works if at the beginning of the input line.
-      (vterm-beginning-of-line)
+      (vterm-send-backspace)
       ;; Kill the vterm.
       (vterm-send-C-d))))
 
