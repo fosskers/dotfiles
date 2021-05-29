@@ -1,6 +1,37 @@
 ;;; autoload.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
+(defun colin/vterm-kill-all ()
+  "Kill all open `*vterm*' buffers."
+  (interactive)
+  (let ((buffers (colin/vterm-buffers)))
+    (dolist (buffer buffers)
+      (set-buffer buffer)
+      ;; Kill any process that was running.
+      (vterm-send-C-c)
+      ;; C-d only works if at the beginning of the input line.
+      (vterm-beginning-of-line)
+      ;; Kill the vterm.
+      (vterm-send-C-d))))
+
+;;;###autoload
+(defun colin/vterm-buffers ()
+  "All currently open `*vterm*' buffers."
+  (doom-matching-buffers "^\\*vterm\\*"))
+
+;;;###autoload
+(defun colin/vterm-kill-window-on-exit (buffer _event)
+  "Kill the entire window when a `vterm' process exits.
+Does nothing if there is only one window left.
+
+The arguments are the way they are because of the requirements of
+`vterm-exit-functions', to which this function here is passed as
+a hook."
+  (let ((window-count (length (window-list))))
+    (when (> window-count 1)
+      (delete-window (get-buffer-window buffer)))))
+
+;;;###autoload
 (defun colin/terminal-over-there ()
   "Split the window vertically and either open an existing
 `*vterm*' buffer or open a new terminal there."
@@ -29,11 +60,6 @@ Returns the created buffer."
   (interactive)
   (+evil/window-split-and-follow)
   (+vterm/here nil))
-
-;;;###autoload
-(defun colin/vterm-buffers ()
-  "All currently open `*vterm*' buffers."
-  (doom-matching-buffers "^\\*vterm\\*"))
 
 ;;;###autoload
 (defun colin/insert-date ()
@@ -142,20 +168,8 @@ Returns nil otherwise."
       (directory-files css))))
 
 ;;;###autoload
-(defun colin/vterm-kill-window-on-exit (buffer _event)
-  "Kill the entire window when a `vterm' process exits.
-Does nothing if there is only one window left.
-
-The arguments are the way they are because of the requirements of
-`vterm-exit-functions', to which this function here is passed as
-a hook."
-  (let ((window-count (length (window-list))))
-    (when (> window-count 1)
-      (delete-window (get-buffer-window buffer)))))
-
-;;;###autoload
 (defun colin/cargo-watch ()
-  "Open a `cargo watch' session."
+  "Open a `cargo watch' session, if possible."
   (interactive)
   (when (+rust-cargo-project-p)
     (let ((buffer (current-buffer)))
@@ -182,8 +196,6 @@ a hook."
       (vterm-send-string "ghcid")
       (vterm-send-return)
       (switch-to-buffer-other-window buffer))))
-
-;; TODO `colin/vterm-kill-all'
 
 ;; --- DEBUGGING --- ;;
 
