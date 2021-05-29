@@ -123,6 +123,7 @@ Also runs a `sass --watch' process if it detects a main `.scss' file."
       (colin/new-terminal-down-there)
       (vterm-send-string cmd)
       (vterm-send-return))
+    (balance-windows)
     (switch-to-buffer-other-window buffer)))
 
 ;;;###autoload
@@ -162,6 +163,27 @@ a hook."
       (vterm-send-string "cargo watch -c -q")
       (vterm-send-return)
       (switch-to-buffer-other-window buffer))))
+
+;;;###autoload
+(defun colin/haskell-project-cabal-file ()
+  "The `.cabal' file from the project root, if present."
+  (interactive)
+  (when-let* ((root (doom-project-root))
+              (files (directory-files root)))
+    (car (-filter (lambda (file) (string= "cabal" (file-name-extension file))) files))))
+
+;;;###autoload
+(defun colin/ghcid ()
+  "Open `ghcid' within a Haskell project, if possible."
+  (interactive)
+  (when (colin/haskell-project-cabal-file)
+    (let ((buffer (current-buffer)))
+      (colin/new-terminal-over-there)
+      (vterm-send-string "ghcid")
+      (vterm-send-return)
+      (switch-to-buffer-other-window buffer))))
+
+;; TODO `colin/vterm-kill-all'
 
 ;; --- DEBUGGING --- ;;
 
