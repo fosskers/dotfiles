@@ -133,6 +133,9 @@
 (after! lsp-haskell
   (setq lsp-haskell-formatting-provider "stylish-haskell"))
 
+(after! lsp-rust
+  (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]))
+
 ;; (after! web-mode
 ;;   (set-formatter! 'html-tidy
 ;;     '("prettier"
