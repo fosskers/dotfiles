@@ -1,5 +1,9 @@
 ;;; autoload.el -*- lexical-binding: t; -*-
 
+(defmacro message! (patt &rest args)
+  "Like `message', but prefix the message with the name of the calling function."
+  `(message "%s: %s" this-command (format ,patt ,@args)))
+
 ;;;###autoload
 (defun colin/vterm-kill-all ()
   "Kill all open `*vterm*' buffers."
@@ -90,7 +94,7 @@ Does nothing if there is only one frame open."
 You can pass as many Kanji as you want as a single string. Spaces
 aren't necessary, but will be accounted for on kin's end."
   (interactive "sKanji: ")
-  (message "You gave: %s" kanji)
+  (message! "You gave: %s" kanji)
   (let* ((outpath "/tmp/graph.png")
          (res (doom-call-process "kin" "graph" kanji "--output" outpath)))
     (when (= 0 (car res))
