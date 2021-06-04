@@ -39,7 +39,18 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
+;; v1.2.4 tag
 (package! org-roam :pin "9065f6a")
+
+;; v3.0.0
+(package! magit :pin "c3bbc9b")
+
+;; v0.2.0
+(package! forge :pin "551e515")
+
+;; (unpin! lsp-mode)
+;; (unpin! lsp-ui)
+;; (unpin! all-the-icons)
 
 (package! org-tree-slide
   :recipe (:host github :repo "takaxp/org-tree-slide"))

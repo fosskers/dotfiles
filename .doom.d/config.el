@@ -52,7 +52,8 @@
       :m "n" #'org-agenda-next-line
       :m "e" #'org-agenda-previous-line
       :m "d" #'org-agenda-day-view
-      :m "w" #'org-agenda-week-view)
+      :m "w" #'org-agenda-week-view
+      :m "z" #'org-agenda-view-mode-dispatch)
 
 ;; To restore Spacemacs-like window switching.
 (map! :leader "1" #'winum-select-window-1
@@ -99,7 +100,7 @@
         org-log-done 'time
         org-agenda-span 7
         org-agenda-start-on-weekday 0
-        org-agenda-start-day "-Sun"
+        org-agenda-start-day nil
         org-hide-emphasis-markers t
         org-mru-clock-files #'org-agenda-files
         org-modules '(ol-bibtex org-habit))
@@ -123,9 +124,12 @@
 (after! magit
   (setq magit-display-buffer-function #'magit-display-buffer-traditional))
 
+(after! forge
+  (setq forge-topic-list-limit '(60 . -1)))
+
 ;; --- PROGRAMMING --- ;;
 
-(setq +format-on-save-enabled-modes '(not c-mode))
+(setq +format-on-save-enabled-modes '(not c-mode emacs-lisp-mode))
 
 (after! haskell-mode
   (setq haskell-stylish-on-save t))
@@ -136,13 +140,13 @@
 (after! lsp-rust
   (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]))
 
-;; (after! web-mode
-;;   (set-formatter! 'html-tidy
-;;     '("prettier"
-;;       "--parser" "html"
-;;       "--loglevel" "silent"
-;;       "--no-bracket-spacing"
-;;       "--jsx-bracket-same-line")))
+(after! web-mode
+  (set-formatter! 'html-tidy
+    '("prettier"
+      "--parser" "html"
+      "--loglevel" "silent"
+      "--no-bracket-spacing"
+      "--jsx-bracket-same-line")))
 
 ;; (after! lsp-mode
 ;;   (setq lsp-headerline-breadcrumb-enable t))
@@ -151,6 +155,19 @@
 
 (after! vterm
   (add-hook 'vterm-exit-functions #'colin/vterm-kill-window-on-exit))
+
+;; --- IRC --- ;;
+
+(after! circe
+  (set-irc-server! "irc.libera.chat"
+                   `(:tls t
+                     :port 6697
+                     :nick "fosskers"
+                     :sasl-username "fosskers"
+                     :sasl-password ,(+pass-get-secret "irc/libera.chat")
+                     :channels ("#systemcrafters" "#archlinux" "#archlinux-aur")))
+  (add-hook 'circe-mode-hook #'enable-circe-display-images)
+  (add-hook 'circe-mode-hook #'disable-circe-new-day-notifier))
 
 ;; --- FINANCE --- ;;
 
