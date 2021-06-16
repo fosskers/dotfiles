@@ -66,6 +66,16 @@ Returns the created buffer."
   (+vterm/here nil))
 
 ;;;###autoload
+(defun colin/in-terminal (command)
+  "Open a new terminal on the right and run a command in it."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (colin/new-terminal-over-there)
+    (vterm-send-string command)
+    (vterm-send-return)
+    (switch-to-buffer-other-window buffer)))
+
+;;;###autoload
 (defun colin/insert-date ()
   "Insert the DateTime at `point'."
   (interactive)
@@ -86,6 +96,13 @@ Does nothing if there is only one frame open."
           (evil-quit) ; Closes the window and its frame if it was the last one.
           (split-window window nil 'left nil)
           (set-window-buffer window buffer))))))
+
+;; TODO Remove once upstreamed.
+;;;###autoload
+(defun colin/new-workspace-named (name)
+  "Create a new workspace with the given NAME."
+  (interactive "sWorkspace Name: ")
+  (+workspace/new name))
 
 ;;;###autoload
 (defun colin/kin-graph (kanji)
@@ -133,6 +150,13 @@ sanitizing, or empty afterwards."
         (concat (file-name-sans-extension file) "." extension)))))
 
 ;;;###autoload
+(defun colin/trunk ()
+  "Load a `trunk' session in a terminal."
+  (interactive)
+  (when (+rust-cargo-project-p)
+    (colin/in-terminal "trunk serve --open")))
+
+;;;###autoload
 (defun colin/seed ()
   "When invoked from a Seed project, serve the server and open `cargo watch'.
 Also runs a `sass --watch' process if it detects a main `.scss' file."
@@ -176,11 +200,7 @@ Returns nil otherwise."
   "Open a `cargo watch' session, if possible."
   (interactive)
   (when (+rust-cargo-project-p)
-    (let ((buffer (current-buffer)))
-      (colin/new-terminal-over-there)
-      (vterm-send-string "cargo watch -c -q")
-      (vterm-send-return)
-      (switch-to-buffer-other-window buffer))))
+    (colin/in-terminal "cargo watch -c -q")))
 
 ;;;###autoload
 (defun colin/haskell-project-cabal-file ()
@@ -195,11 +215,36 @@ Returns nil otherwise."
   "Open `ghcid' within a Haskell project, if possible."
   (interactive)
   (when (colin/haskell-project-cabal-file)
-    (let ((buffer (current-buffer)))
-      (colin/new-terminal-over-there)
-      (vterm-send-string "ghcid")
-      (vterm-send-return)
-      (switch-to-buffer-other-window buffer))))
+    (colin/in-terminal "ghcid")))
+
+;;;###autoload
+(defun colin/hledger-transfers (income)
+  "Automate monthly transfers, given some INCOME."
+  (interactive "nIncome: ")
+  (when-let* ((buffer (find-file-noselect hledger-jfile))
+              (raw (colin/hledger-transfers-raw income)))
+    (with-current-buffer buffer
+      (goto-char (point-max))
+      (insert "\n")
+      (insert raw)
+      (save-buffer))))
+
+;;;###autoload
+(defun colin/hledger-transfers-raw (income)
+  "Given an INCOME, produce a valid Hledger transaction string."
+  (interactive "nIncome: ")
+  (let* ((today (format-time-string "%Y-%m-%d"))
+         (tax (* income 0.25))
+         (take-home (- income tax))
+         (donation (* take-home 0.1))
+         (tfsa (* take-home 0.18))
+         (saving (- take-home donation tfsa)))
+    (concat (format "%s Monthly Transfers\n" today)
+            (format "    assets:bs:sav:tax       %.2f C\n" tax)
+            (format "    assets:bs:sav:donation  %.2f C\n" donation)
+            (format "    assets:bs:sav:temp      %.2f C\n" saving)
+            (format "    assets:qtrade:tfsa      %.2f C\n" tfsa)
+            "    assets:bs:chequing")))
 
 ;; --- DEBUGGING --- ;;
 

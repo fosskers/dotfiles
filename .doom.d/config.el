@@ -83,6 +83,8 @@
 (map! :leader "e n" #'flycheck-next-error
       :leader "e N" #'flycheck-previous-error)
 
+;; (map! :leader :desc "New workspace named" "TAB N" #'colin/new-workspace-named)
+
 ;; --- ORG MODE --- ;;
 
 (setq org-directory "~/sync/org/"
@@ -129,7 +131,7 @@
 
 ;; --- PROGRAMMING --- ;;
 
-(setq +format-on-save-enabled-modes '(not c-mode emacs-lisp-mode))
+(setq +format-on-save-enabled-modes '(not c-mode))
 
 (after! haskell-mode
   (setq haskell-stylish-on-save t))
