@@ -52,6 +52,9 @@
 ;; (unpin! lsp-ui)
 ;; (unpin! all-the-icons)
 
+(package! streak
+  :recipe (:host github :repo "fosskers/streak"))
+
 (package! org-tree-slide
   :recipe (:host github :repo "takaxp/org-tree-slide"))
 

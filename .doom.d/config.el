@@ -1,5 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+(require 'streak)
+
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
@@ -180,6 +182,7 @@
 ;; --- MISC. --- ;;
 
 (setq alert-default-style 'notifications)
+(streak-mode)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
