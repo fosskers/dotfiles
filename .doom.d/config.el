@@ -1,7 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(require 'streak)
-
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
@@ -85,7 +83,7 @@
 (map! :leader "e n" #'flycheck-next-error
       :leader "e N" #'flycheck-previous-error)
 
-;; (map! :leader :desc "New workspace named" "TAB N" #'colin/new-workspace-named)
+(map! :leader :desc "New workspace named" "TAB N" #'colin/new-workspace-named)
 
 ;; --- ORG MODE --- ;;
 
@@ -179,9 +177,21 @@
 (after! hledger-mode
   (setq hledger-jfile "/home/colin/sync/life/finances/finances.journal"))
 
+;; --- EMAIL --- ;;
+
+(set-email-account! "fosskers.ca"
+                    '((mu4e-sent-folder . "/fosskers.ca/Sent")
+                      (mu4e-drafts-folder . "/fosskers.ca/Drafts")
+                      (mu4e-trash-folder . "/fosskers.ca/Trash")
+                      (mu4e-refile-folder . "/fosskers.ca/Archive")
+                      (smtpmail-smtp-user . "colin@fosskers.ca"))
+                    t)
+
 ;; --- MISC. --- ;;
 
 (setq alert-default-style 'notifications)
+
+(require 'streak)
 (streak-mode)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
