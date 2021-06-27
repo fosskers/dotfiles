@@ -1,19 +1,19 @@
-set -x PATH '/bin' '/usr/local/bin' '/usr/bin' '/usr/sbin' '/sbin' '/home/colin/.local/bin' '/usr/bin/core_perl' '/home/colin/code/go/bin' '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin' '/home/colin/.emacs.d/bin'
+set -x PATH /bin /usr/local/bin /usr/bin /usr/sbin /sbin '/home/colin/.local/bin' /usr/bin/core_perl /home/colin/code/go/bin '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin' '/home/colin/.emacs.d/bin'
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
-set -x EDITOR "emacs"
-set -x JAVA_HOME '/usr/lib/jvm/default'
+set -x EDITOR emacs
+set -x JAVA_HOME /usr/lib/jvm/default
 set -x DOOMDIR '/home/colin/dotfiles/.doom.d'
 
 # Wayland
 set -x MOZ_ENABLE_WAYLAND 1
 # set -x QT_QPA_PLATFORM 'wayland-egl'
-set -x SDL_VIDEODRIVER 'wayland'
-# set -x SDL_VIDEODRIVER 'x11'
+set -x SDL_VIDEODRIVER wayland
+# set -x SDL_VIDEODRIVER x11
 
 # Golang
-set -x GOPATH '/home/colin/code/go'
-set -x GO111MODULE 'on'
+set -x GOPATH /home/colin/code/go
+set -x GO111MODULE on
 set -x CGO_ENABLED 1
 
 # HLedger
@@ -35,7 +35,7 @@ function la
 end
 
 function hi
-    hledger is -VMA -b 2020-10 --pretty-tables $argv
+    hledger is -VMA -b 2021-1 --pretty-tables $argv
 end
 
 function hb
@@ -51,22 +51,22 @@ function hbud
 end
 
 function c
-  clear
-  ls
+    clear
+    ls
 end
 
 function mkcd
-  mkdir $argv
-  cd $argv
+    mkdir $argv
+    cd $argv
 end
 
 # GIT COMMANDS
 function gd
-  git diff $argv
+    git diff $argv
 end
 
 function gl
-  git log --graph --show-signature
+    git log --graph --show-signature
 end
 
 starship init fish | source
