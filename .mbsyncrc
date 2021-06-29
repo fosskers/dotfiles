@@ -1,0 +1,19 @@
+IMAPStore fastmail-remote
+Host imap.fastmail.com
+Port 993
+User colin@fosskers.ca
+PassCmd "pass show mail/mu4e"
+SSLType IMAPS
+
+MaildirStore fastmail-local
+Path ~/.mail/
+Inbox ~/.mail/INBOX
+SubFolders Verbatim
+
+Channel fastmail
+Master :fastmail-remote:
+Slave :fastmail-local:
+# Patterns ???
+Create Both
+Expunge Both
+SyncState *
