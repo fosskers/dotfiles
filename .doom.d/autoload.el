@@ -218,11 +218,11 @@ Returns nil otherwise."
     (colin/in-terminal "ghcid")))
 
 ;;;###autoload
-(defun colin/hledger-transfers (income)
-  "Automate monthly transfers, given some INCOME."
-  (interactive "nIncome: ")
+(defun colin/hledger-transfers (income liabilities)
+  "Automate monthly transfers, given some INCOME and LIABILITIES."
+  (interactive "nIncome: \nnMastercard: ")
   (when-let* ((buffer (find-file-noselect hledger-jfile))
-              (raw (colin/hledger-transfers-raw income)))
+              (raw (colin/hledger-transfers-raw income liabilities)))
     (with-current-buffer buffer
       (goto-char (point-max))
       (insert "\n")
@@ -230,20 +230,20 @@ Returns nil otherwise."
       (save-buffer))))
 
 ;;;###autoload
-(defun colin/hledger-transfers-raw (income)
-  "Given an INCOME, produce a valid Hledger transaction string."
-  (interactive "nIncome: ")
+(defun colin/hledger-transfers-raw (income liabilities)
+  "Given a month's INCOME and its LIABILITIES, produce a valid Hledger transaction string."
   (let* ((today (format-time-string "%Y-%m-%d"))
          (tax (* income 0.25))
          (take-home (- income tax))
          (donation (* take-home 0.1))
          (tfsa (* take-home 0.18))
-         (saving (- take-home donation tfsa)))
+         (saving (- take-home liabilities donation tfsa)))
     (concat (format "%s Monthly Transfers\n" today)
-            (format "    assets:bs:sav:tax       %.2f C\n" tax)
-            (format "    assets:bs:sav:donation  %.2f C\n" donation)
-            (format "    assets:bs:sav:temp      %.2f C\n" saving)
-            (format "    assets:qtrade:tfsa      %.2f C\n" tfsa)
+            (format "    assets:bs:sav:tax          %.2f C\n" tax)
+            (format "    assets:bs:sav:donation     %.2f C\n" donation)
+            (format "    assets:bs:sav:japan        %.2f C\n" saving)
+            (format "    assets:qtrade:tfsa         %.2f C\n" tfsa)
+            (format "    liabilities:bs:mastercard  %.2f C\n" liabilities)
             "    assets:bs:chequing")))
 
 ;; --- DEBUGGING --- ;;
