@@ -134,22 +134,6 @@ conversion rate at the end."
     (round (* usd usd-to-cad))))
 
 ;;;###autoload
-(defun colin/file-set-extension (file extension)
-  "Change the extension of a FILE to EXTENSION.
-
-Sanitizes the input to consolidate leading/trailing dots.
-
-Returns `nil' if either of the file or extension are `nil' before
-sanitizing, or empty afterwards."
-  (when (and file extension)
-    (let* ((patt "[ \t\n\r.]+") ; Borrowed from `string-trim'.
-           (file (string-trim-right file patt))
-           (extension (string-trim-left extension patt)))
-      (unless (or (string-empty-p file)
-                  (string-empty-p extension))
-        (concat (file-name-sans-extension file) "." extension)))))
-
-;;;###autoload
 (defun colin/trunk ()
   "Load a `trunk' session in a terminal."
   (interactive)
@@ -172,7 +156,7 @@ Also runs a `sass --watch' process if it detects a main `.scss' file."
     ;; TODO Considering `dolist' over every `.scss' it can find.
     (when-let* ((css-files (colin/seed--css))
                 (scss (colin/seed--scss-file css-files))
-                (css (colin/file-set-extension scss "css"))
+                (css (file-name-with-extension scss "css"))
                 (cmd (format "sass --watch assets/css/%s assets/css/%s" scss css)))
       (colin/new-terminal-down-there)
       (vterm-send-string cmd)
@@ -236,15 +220,14 @@ Returns nil otherwise."
          (tax (* income 0.25))
          (take-home (- income tax))
          (donation (* take-home 0.1))
-         (tfsa (* take-home 0.18))
-         (saving (- take-home liabilities donation tfsa)))
+         (tfsa (* take-home 0.18)))
     (concat (format "%s Monthly Transfers\n" today)
             (format "    assets:bs:sav:tax          %.2f C\n" tax)
             (format "    assets:bs:sav:donation     %.2f C\n" donation)
-            (format "    assets:bs:sav:japan        %.2f C\n" saving)
+            (format "    assets:bs:sav:japan\n")
             (format "    assets:qtrade:tfsa         %.2f C\n" tfsa)
             (format "    liabilities:bs:mastercard  %.2f C\n" liabilities)
-            "    assets:bs:chequing")))
+            (format "    assets:bs:chequing         %.2f C" (* -1.0 income)))))
 
 ;; --- DEBUGGING --- ;;
 

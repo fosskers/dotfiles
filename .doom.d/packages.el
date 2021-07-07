@@ -42,8 +42,8 @@
 ;; v1.2.4 tag
 (package! org-roam :pin "9065f6a")
 
-;; v3.0.0
-(package! magit :pin "c3bbc9b")
+;; v3.1.1
+(package! magit :pin "143d95cced1ee793106d16da3a182dcc2dd01e88")
 
 ;; v0.2.0
 (package! forge :pin "551e515")
