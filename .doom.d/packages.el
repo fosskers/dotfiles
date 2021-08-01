@@ -39,18 +39,15 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
-;; v1.2.4 tag
-(package! org-roam :pin "9065f6a")
-
-;; v3.1.1
-(package! magit :pin "143d95cced1ee793106d16da3a182dcc2dd01e88")
+;; v3.2.0
+(package! magit :pin "93f03389d055fe1f648b37a85fade85e8635b41c")
 
 ;; v0.2.0
 (package! forge :pin "551e515")
 
-;; (unpin! lsp-mode)
-;; (unpin! lsp-ui)
-;; (unpin! all-the-icons)
+;; WIP `ob-julia' replacement.
+(package! ob-julia
+  :recipe (:host github :repo "nico202/ob-julia" :files ("*.el" "julia")))
 
 (package! streak
   :recipe (:host github :repo "fosskers/streak"))
@@ -63,9 +60,6 @@
 
 (package! org-appear
   :recipe (:host github :repo "awth13/org-appear"))
-
-(package! org-mru-clock
-  :recipe (:host github :repo "unhammer/org-mru-clock"))
 
 (package! hledger-mode
   :recipe (:host github :repo "narendraj9/hledger-mode"))

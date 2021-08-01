@@ -66,9 +66,6 @@
 ;; A quicker way to the Agenda view I want.
 (map! :leader "a" #'org-agenda-list)
 
-;; Easy clocking in.
-(map! :leader "I" #'org-mru-clock-in)
-
 ;; Easy code commenting.
 (map! :leader "C" #'comment-line)
 
@@ -82,8 +79,6 @@
 ;; Flycheck bindings from Spacemacs.
 (map! :leader "e n" #'flycheck-next-error
       :leader "e N" #'flycheck-previous-error)
-
-(map! :leader :desc "New workspace named" "TAB N" #'colin/new-workspace-named)
 
 ;; --- ORG MODE --- ;;
 
@@ -104,7 +99,7 @@
         org-agenda-start-on-weekday 0
         org-agenda-start-day nil
         org-hide-emphasis-markers t
-        org-mru-clock-files #'org-agenda-files
+        org-hugo-base-dir "/home/colin/code/hugo"
         org-modules '(ol-bibtex org-habit))
   (org-wild-notifier-mode)
   (add-hook 'org-mode-hook #'org-appear-mode)
