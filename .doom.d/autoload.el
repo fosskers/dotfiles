@@ -232,7 +232,7 @@ Returns nil otherwise."
             (format "    assets:bs:sav:japan\n")
             (format "    assets:qtrade:tfsa         %.2f C\n" tfsa)
             (format "    liabilities:bs:mastercard  %.2f C\n" liabilities)
-            (format "    assets:bs:chequing         %.2f C" (* -1.0 income)))))
+            "    assets:bs:chequing         = 10250 C")))
 
 ;; --- DEBUGGING --- ;;
 

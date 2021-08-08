@@ -45,6 +45,10 @@
 ;; v0.2.0
 (package! forge :pin "551e515")
 
+;; For org-roam-ui
+(package! websocket)
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+
 ;; WIP `ob-julia' replacement.
 (package! ob-julia
   :recipe (:host github :repo "nico202/ob-julia" :files ("*.el" "julia")))
