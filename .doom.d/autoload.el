@@ -70,10 +70,16 @@ Returns the created buffer."
   "Open a new terminal on the right and run a command in it."
   (interactive)
   (let ((buffer (current-buffer)))
-    (colin/new-terminal-over-there)
-    (vterm-send-string command)
-    (vterm-send-return)
+    (colin/in-terminal-stay command)
     (switch-to-buffer-other-window buffer)))
+
+;;;###autoload
+(defun colin/in-terminal-stay (command)
+  "Like `colin/in-terminal', but stays in the opened buffer."
+  (interactive)
+  (colin/new-terminal-over-there)
+  (vterm-send-string command)
+  (vterm-send-return))
 
 ;;;###autoload
 (defun colin/insert-date ()
@@ -185,6 +191,17 @@ Returns nil otherwise."
       (directory-files css))))
 
 ;;;###autoload
+(defun colin/forethink ()
+  "Open all the REPLs, etc., necessary for work."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (colin/cargo-watch)
+    (colin/in-terminal-stay "cd hover; cargo make watch")
+    (tear-off-window nil)
+    (colin/in-terminal "cd background; cargo make watch")
+    (switch-to-buffer-other-frame buffer)))
+
+;;;###autoload
 (defun colin/cargo-watch ()
   "Open a `cargo watch' session, if possible."
   (interactive)
@@ -236,30 +253,30 @@ Returns nil otherwise."
 
 ;; --- DEBUGGING --- ;;
 
-;;;###autoload
-(defun bug/switch-frame ()
-  "Reproduce the frame switching bug on Wayland."
-  (interactive)
-  (let* ((orig-buffer (current-buffer))
-         (orig-window (get-buffer-window orig-buffer))
-         (orig-frame (window-frame orig-window))
-         (split-window (split-window-right))
-         (split-buffer (window-buffer split-window)))
-    (switch-to-buffer-other-window split-buffer)
-    (switch-to-buffer "*scratch*")
-    (tear-off-window nil)
-    (let* ((torn-window (get-buffer-window))
-           (torn-frame (window-frame))
-           (selected (selected-frame))
-           (next (next-frame)))
-      (message "Original Frame: %s" orig-frame)
-      (message "Torn Frame: %s" torn-frame)
-      (message "Selected Frame: %s" selected)
-      (message "Next Frame: %s" next)
-      (when (window-live-p orig-window)
-        (message "Original window is live."))
-      ;; (select-frame-set-input-focus orig-frame)
-      (select-window orig-window))))
+;; (defun bug/switch-frame ()
+;;   "Reproduce the frame switching bug on Wayland."
+;;   (interactive)
+;;   (let* ((orig-buffer (current-buffer))
+;;          (orig-window (get-buffer-window orig-buffer))
+;;          (orig-frame (window-frame orig-window))
+;;          (split-window (split-window-right))
+;;          (split-buffer (window-buffer split-window)))
+;;     (switch-to-buffer-other-window split-buffer)
+;;     (switch-to-buffer "*scratch*")
+;;     (tear-off-window nil)
+;;     (let* ((torn-window (get-buffer-window))
+;;            (torn-frame (window-frame))
+;;            (selected (selected-frame))
+;;            (next (next-frame)))
+;;       (message "Original Frame: %s" orig-frame)
+;;       (message "Torn Frame: %s" torn-frame)
+;;       (message "Selected Frame: %s" selected)
+;;       (message "Next Frame: %s" next)
+;;       (when (window-live-p orig-window)
+;;         (message "Original window is live."))
+;;       ;; (select-frame-set-input-focus orig-frame)
+;;       (select-window orig-window))))
+
 ;; (select-frame-set-input-focus orig-frame))))
 ;; (select-frame-set-input-focus next))))
 ;; (switch-to-buffer-other-frame nil))))
