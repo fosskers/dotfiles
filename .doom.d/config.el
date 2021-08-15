@@ -20,6 +20,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-unicode-font (font-spec :family "Julia Mono"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -115,6 +116,14 @@
   (setq org-tree-slide-activate-message "発表開始"
         org-tree-slide-deactivate-message "発表終了"
         org-tree-slide-modeline-display nil))
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 ;; --- MAGIT --- ;;
 
