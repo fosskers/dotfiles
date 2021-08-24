@@ -164,7 +164,7 @@ Also runs a `sass --watch' process if it detects a main `.scss' file."
     (colin/new-terminal-down-there)
     (vterm-send-string "cargo make watch")
     (vterm-send-return)
-    ;; TODO Considering `dolist' over every `.scss' it can find.
+    ;; TODO Consider `dolist' over every `.scss' it can find.
     (when-let* ((css-files (colin/seed--css))
                 (scss (colin/seed--scss-file css-files))
                 (css (file-name-with-extension scss "css"))
@@ -175,13 +175,11 @@ Also runs a `sass --watch' process if it detects a main `.scss' file."
     (balance-windows)
     (switch-to-buffer-other-window buffer)))
 
-;;;###autoload
 (defun colin/seed--scss-file (files)
   "Given some FILES, extract the first `.scss' file it can find."
-  (car (-filter (lambda (file) (string= "scss" (file-name-extension file)))
-                files)))
+  (car (seq-filter (lambda (file) (string= "scss" (file-name-extension file)))
+                   files)))
 
-;;;###autoload
 (defun colin/seed--css ()
   "The contents of `<project-root>/assets/css/', if it exists.
 Returns nil otherwise."
@@ -191,14 +189,19 @@ Returns nil otherwise."
       (directory-files css))))
 
 ;;;###autoload
-(defun colin/forethink ()
-  "Open all the REPLs, etc., necessary for work."
+(defun colin/seed-watch ()
+  "Alongside a top level `cargo-watch', open a `cargo-make-watch' for every sub library that has a `Makefile.toml'."
   (interactive)
-  (let ((buffer (current-buffer)))
+  (when-let* ((project-root (doom-project-root))
+              (make-files (directory-files-recursively project-root "Makefile.toml"))
+              (dirs (mapcar (lambda (file) (file-name-directory file)) make-files))
+              (first (car dirs))
+              (buffer (current-buffer)))
     (colin/cargo-watch)
-    (colin/in-terminal-stay "cd hover; cargo make watch")
+    (colin/in-terminal-stay (format "cd %s; cargo make watch" first))
     (tear-off-window nil)
-    (colin/in-terminal "cd background; cargo make watch")
+    (dolist (dir (cdr dirs))
+      (colin/in-terminal (format "cd %s; cargo make watch" dir)))
     (switch-to-buffer-other-frame buffer)))
 
 ;;;###autoload
@@ -214,7 +217,7 @@ Returns nil otherwise."
   (interactive)
   (when-let* ((root (doom-project-root))
               (files (directory-files root)))
-    (car (-filter (lambda (file) (string= "cabal" (file-name-extension file))) files))))
+    (car (seq-filter (lambda (file) (string= "cabal" (file-name-extension file))) files))))
 
 ;;;###autoload
 (defun colin/ghcid ()
@@ -239,10 +242,10 @@ Returns nil otherwise."
 (defun colin/hledger-transfers-raw (income liabilities)
   "Given a month's INCOME and its LIABILITIES, produce a valid Hledger transaction string."
   (let* ((today (format-time-string "%Y-%m-%d"))
-         (tax (* income 0.25))
+         (tax (* income 0.30))
          (take-home (- income tax))
-         (donation (* take-home 0.1))
-         (tfsa (* take-home 0.18)))
+         (donation (* take-home 0.10))
+         (tfsa (* take-home 0.10)))
     (concat (format "%s Monthly Transfers\n" today)
             (format "    assets:bs:sav:tax          %.2f C\n" tax)
             (format "    assets:bs:sav:donation     %.2f C\n" donation)
