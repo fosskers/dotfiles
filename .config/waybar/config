@@ -4,7 +4,7 @@
     "height": 24,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
+    "modules-right": ["tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/germany", "custom/japan"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-click": true,
@@ -18,6 +18,11 @@
     "custom/japan": {
         "format": "{}",
         "exec": "TZ=Asia/Tokyo date \"+%H:%M %Z\"",
+        "interval": 30,
+    },
+    "custom/germany": {
+        "format": "{}",
+        "exec": "TZ=Europe/Berlin date \"+%H:%M %Z\"",
         "interval": 30,
     },
     "cpu": {

@@ -47,7 +47,8 @@
 
 ;; For org-roam-ui
 (package! websocket)
-(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! org-roam-ui
+  :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 
 ;; WIP `ob-julia' replacement.
 (package! ob-julia
