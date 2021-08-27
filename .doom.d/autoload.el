@@ -153,8 +153,9 @@ conversion rate at the end."
 
 ;;;###autoload
 (defun colin/seed ()
-  "When invoked from a Seed project, serve the server and open `cargo watch'.
-Also runs a `sass --watch' process if it detects a main `.scss' file."
+  "When invoked from a Seed project, serve the server and open \"cargo watch\".
+Also runs a \"sass --watch\" process if it detects a main `.scss'
+file."
   (interactive)
   (let ((buffer (current-buffer)))
     ;; TODO Consider `+vterm/toggle'.
@@ -164,29 +165,10 @@ Also runs a `sass --watch' process if it detects a main `.scss' file."
     (colin/new-terminal-down-there)
     (vterm-send-string "cargo make watch")
     (vterm-send-return)
-    ;; TODO Consider `dolist' over every `.scss' it can find.
-    (when-let* ((css-files (colin/seed--css))
-                (scss (colin/seed--scss-file css-files))
-                (css (file-name-with-extension scss "css"))
-                (cmd (format "sass --watch assets/css/%s assets/css/%s" scss css)))
-      (colin/new-terminal-down-there)
-      (vterm-send-string cmd)
-      (vterm-send-return))
+    (when-let ((project-root (doom-project-root)))
+      (colin/seed-watch-scss project-root))
     (balance-windows)
     (switch-to-buffer-other-window buffer)))
-
-(defun colin/seed--scss-file (files)
-  "Given some FILES, extract the first `.scss' file it can find."
-  (car (seq-filter (lambda (file) (string= "scss" (file-name-extension file)))
-                   files)))
-
-(defun colin/seed--css ()
-  "The contents of `<project-root>/assets/css/', if it exists.
-Returns nil otherwise."
-  (when-let* ((project-root (doom-project-root))
-              (css (doom-path project-root "assets" "css")))
-    (when (file-exists-p css)
-      (directory-files css))))
 
 ;;;###autoload
 (defun colin/seed-watch ()
