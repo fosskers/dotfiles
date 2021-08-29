@@ -8,15 +8,14 @@
 (defun colin/vterm-kill-all ()
   "Kill all open `*vterm*' buffers."
   (interactive)
-  (let ((buffers (colin/vterm-buffers)))
-    (dolist (buffer buffers)
-      (set-buffer buffer)
-      ;; Kill any process that was running.
-      (vterm-send-C-c)
-      ;; C-d only works if at the beginning of the input line.
-      (vterm-send-backspace)
-      ;; Kill the vterm.
-      (vterm-send-C-d))))
+  (dolist (buffer (colin/vterm-buffers))
+    (set-buffer buffer)
+    ;; Kill any process that was running.
+    (vterm-send-C-c)
+    ;; C-d only works if at the beginning of the input line.
+    (vterm-send-backspace)
+    ;; Kill the vterm.
+    (vterm-send-C-d)))
 
 ;;;###autoload
 (defun colin/vterm-buffers ()
@@ -153,8 +152,8 @@ conversion rate at the end."
 
 ;;;###autoload
 (defun colin/seed ()
-  "When invoked from a Seed project, serve the server and open \"cargo watch\".
-Also runs a \"sass --watch\" process if it detects a main `.scss'
+  "When invoked from a Seed project, serve the server and open 'cargo watch'.
+Also runs a 'sass --watch' process if it detects a main `.scss'
 file."
   (interactive)
   (let ((buffer (current-buffer)))
@@ -172,7 +171,7 @@ file."
 
 ;;;###autoload
 (defun colin/seed-watch ()
-  "Open a `cargo-make-watch' for every sub library that has a `Makefile.toml'.
+  "Open a 'cargo make watch' for every sub library that has a `Makefile.toml'.
 Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file it can find."
   (interactive)
   (when-let* ((project-root (doom-project-root))
@@ -191,6 +190,7 @@ Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file i
 ;;;###autoload
 (defun colin/seed-watch-scss (root)
   "Open a 'sass --watch' session for every `.scss' found from the given ROOT downwards."
+  (interactive "fPath: ")
   (let ((files (directory-files-recursively root "[.]scss$")))
     (dolist (scss files)
       (let ((css (file-name-with-extension scss "css")))
@@ -198,7 +198,7 @@ Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file i
 
 ;;;###autoload
 (defun colin/cargo-watch ()
-  "Open a `cargo watch' session, if possible."
+  "Open a 'cargo watch' session, if possible."
   (interactive)
   (when (+rust-cargo-project-p)
     (colin/in-terminal "cargo watch -c -q")))
