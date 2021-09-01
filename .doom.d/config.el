@@ -97,7 +97,7 @@
   (setq org-todo-keywords '("TODO" "STARTED" "DONE")
         org-log-done 'time
         org-agenda-span 7
-        org-agenda-start-on-weekday 0
+        org-agenda-start-on-weekday 1
         org-agenda-start-day nil
         org-hide-emphasis-markers t
         org-hugo-base-dir "/home/colin/code/hugo"
@@ -195,8 +195,10 @@
 
 (setq alert-default-style 'notifications)
 
-(require 'streak)
-(streak-mode)
+(use-package! streak
+  :config
+  (setq streak-day-pattern " %d Days ")
+  (streak-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
