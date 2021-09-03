@@ -1,5 +1,6 @@
 ;;; autoload/util.el -*- lexical-binding: t; -*-
 
+;;;###autoload
 (defmacro message! (patt &rest args)
   "Like `message', but prefix the message with the name of the calling function."
   `(message "%s: %s" this-command (format ,patt ,@args)))
@@ -25,3 +26,4 @@ Does nothing if there is only one frame open."
           (evil-quit) ; Closes the window and its frame if it was the last one.
           (split-window window nil 'left nil)
           (set-window-buffer window buffer))))))
+
