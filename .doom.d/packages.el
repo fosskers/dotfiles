@@ -39,6 +39,8 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
+(unpin! sly)
+
 ;; v3.2.0
 (package! magit :pin "93f03389d055fe1f648b37a85fade85e8635b41c")
 
@@ -53,9 +55,6 @@
 (package! ob-julia
   :recipe (:host github :repo "nico202/ob-julia" :files ("*.el" "julia")))
 
-(package! streak
-  :recipe (:host github :repo "fosskers/streak"))
-
 (package! org-tree-slide
   :recipe (:host github :repo "takaxp/org-tree-slide"))
 
@@ -65,8 +64,15 @@
 (package! org-appear
   :recipe (:host github :repo "awth13/org-appear"))
 
+(package! org-super-agenda)
+
 (package! hledger-mode
   :recipe (:host github :repo "narendraj9/hledger-mode"))
+
+;; (package! streak
+;;   :recipe (:host github :repo "fosskers/streak"))
+
+(package! pkgbuild-mode)
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...

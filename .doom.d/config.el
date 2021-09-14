@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-spacegrey)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -81,6 +81,14 @@
 (map! :leader "e n" #'flycheck-next-error
       :leader "e N" #'flycheck-previous-error)
 
+;; --- UI --- ;;
+
+;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
+(setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
+                                      #'doom-dashboard-widget-shortmenu
+                                      #'doom-dashboard-widget-loaded
+                                      #'colin/display-saying))
+
 ;; --- ORG MODE --- ;;
 
 (setq org-directory "~/sync/org/"
@@ -125,6 +133,17 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+(use-package! org-super-agenda
+  :after org-agenda
+  :config
+  (org-super-agenda-mode)
+  (setq org-super-agenda-groups '((:name "Open Source" :file-path "coding.org")
+                                  (:name "Sys Admin" :file-path "sysadmin.org")
+                                  (:name "Personal" :file-path "colin.org")
+                                  (:name "Life" :file-path "2021.org")
+                                  (:name "Forethink" :tag "forethink")
+                                  (:name "Freelancing" :tag "admin"))))
+
 ;; --- MAGIT --- ;;
 
 (after! magit
@@ -154,6 +173,9 @@
       "--no-bracket-spacing"
       "--jsx-bracket-same-line")))
 
+(after! sly
+  (setq sly-command-switch-to-existing-lisp 'always))
+
 ;; (after! lsp-mode
 ;;   (setq lsp-headerline-breadcrumb-enable t))
 
@@ -166,12 +188,12 @@
 
 (after! circe
   (set-irc-server! "irc.libera.chat"
-                   `(:tls t
-                     :port 6697
-                     :nick "fosskers"
-                     :sasl-username "fosskers"
-                     :sasl-password ,(+pass-get-secret "irc/libera.chat")
-                     :channels ("#systemcrafters" "#archlinux" "#archlinux-aur")))
+    `(:tls t
+      :port 6697
+      :nick "fosskers"
+      :sasl-username "fosskers"
+      :sasl-password ,(+pass-get-secret "irc/libera.chat")
+      :channels ("#systemcrafters" "#archlinux" "#archlinux-aur")))
   (add-hook 'circe-mode-hook #'enable-circe-display-images)
   (add-hook 'circe-mode-hook #'disable-circe-new-day-notifier))
 
@@ -191,13 +213,24 @@
                       (smtpmail-smtp-user . "colin@fosskers.ca"))
                     t)
 
+(after! mu4e
+  (setq smtpmail-smtp-server "smtp.fastmail.com"
+        ;; STARTTLS, not SSL
+        smtpmail-smtp-service 587))
+
 ;; --- MISC. --- ;;
+
+(add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . pkgbuild-mode))
 
 (setq alert-default-style 'notifications)
 
 (use-package! streak
+  ;; Comment this out and restore the lines in `packages.el' once a new release
+  ;; is made.
+  :load-path "/home/colin/code/emacs-lisp/streak"
   :config
-  (setq streak-day-pattern " %d Days ")
+  (setq streak-formatters '(("purity" . (lambda (days) (format "清 %d" days)))
+                            ("kanji" . (lambda (days) (format "漢字 %d" days)))))
   (streak-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
