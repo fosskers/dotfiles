@@ -65,7 +65,7 @@
       :leader "6" #'winum-select-window-6)
 
 ;; A quicker way to the Agenda view I want.
-(map! :leader "a" #'org-agenda-list)
+(map! :leader "a" #'colin/org-today)
 
 ;; Easy code commenting.
 (map! :leader "C" #'comment-line)
@@ -85,9 +85,10 @@
 
 ;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
 (setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
-                                      #'doom-dashboard-widget-shortmenu
-                                      #'doom-dashboard-widget-loaded
-                                      #'colin/display-saying))
+                                      #'colin/display-saying
+                                      #'doom-dashboard-widget-footer))
+
+
 
 ;; --- ORG MODE --- ;;
 
@@ -102,7 +103,7 @@
                          "/home/colin/sync/japan/japan.org"))
 
 (after! org
-  (setq org-todo-keywords '("TODO" "STARTED" "DONE")
+  (setq org-todo-keywords '("TODO" "DONE")
         org-log-done 'time
         org-agenda-span 7
         org-agenda-start-on-weekday 1
@@ -154,7 +155,7 @@
 
 ;; --- PROGRAMMING --- ;;
 
-(setq +format-on-save-enabled-modes '(not c-mode))
+;; (setq +format-on-save-enabled-modes '(not c-mode))
 
 (after! haskell-mode
   (setq haskell-stylish-on-save t))
@@ -230,7 +231,8 @@
   :load-path "/home/colin/code/emacs-lisp/streak"
   :config
   (setq streak-formatters '(("purity" . (lambda (days) (format "清 %d" days)))
-                            ("kanji" . (lambda (days) (format "漢字 %d" days)))))
+                            ("kanji" . (lambda (days) (format "漢字 %d" days)))
+                            ("clean" . (lambda (days) (format "掃 %d" days)))))
   (streak-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:

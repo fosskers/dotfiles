@@ -39,14 +39,6 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
-(unpin! sly)
-
-;; v3.2.0
-(package! magit :pin "93f03389d055fe1f648b37a85fade85e8635b41c")
-
-;; v0.2.0
-(package! forge :pin "551e515")
-
 ;; For org-roam-ui
 (package! websocket)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
