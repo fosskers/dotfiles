@@ -103,6 +103,7 @@
                          "/home/colin/sync/japan/japan.org"))
 
 (after! org
+  (map! "<f12>" #'colin/org-sort)
   (setq org-todo-keywords '("TODO" "DONE")
         org-log-done 'time
         org-agenda-span 7
