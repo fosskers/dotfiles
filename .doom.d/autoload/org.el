@@ -12,4 +12,6 @@
   "Automate the sorting of org headings by their TODO status."
   (interactive)
   (outline-up-heading 1 'invisible-ok)
-  (org-sort-entries nil ?o))
+  (org-sort-entries nil ?o)
+  (+org/toggle-fold)
+  (+org/toggle-fold))

@@ -85,8 +85,8 @@
 
 ;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
 (setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
-                                      #'colin/display-saying
-                                      #'doom-dashboard-widget-footer))
+                                      #'colin/display-saying))
+                                      ;; #'doom-dashboard-widget-footer))
 
 
 
@@ -176,7 +176,8 @@
       "--jsx-bracket-same-line")))
 
 (after! sly
-  (setq sly-command-switch-to-existing-lisp 'always))
+  (setq sly-command-switch-to-existing-lisp 'always)
+  (set-popup-rule! "^\\*sly-mrepl" :side 'right :size 0.5 :quit nil :ttl nil))
 
 ;; (after! lsp-mode
 ;;   (setq lsp-headerline-breadcrumb-enable t))
