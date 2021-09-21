@@ -48,10 +48,17 @@ Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file i
 (defun colin/seed-watch-scss (root)
   "Open a 'sass --watch' session for every `.scss' found from the given ROOT downwards."
   (interactive "fPath: ")
-  (let ((files (directory-files-recursively root "[.]scss$")))
+  (let ((files (directory-files-recursively root "[.]scss$" nil #'colin/descend-into-dir nil)))
     (dolist (scss files)
       (let ((css (file-name-with-extension scss "css")))
         (colin/in-terminal (format "sass --watch %s %s" scss css))))))
+
+(defun colin/descend-into-dir (directory)
+  "Should this DIRECTORY be descended into?"
+  (let ((base (file-name-base directory))
+        (bads '("target" "node_modules")))
+    (not (or (equal ?. (seq-first base))
+             (member base bads)))))
 
 ;;;###autoload
 (defun colin/cargo-watch ()

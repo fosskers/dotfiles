@@ -86,7 +86,7 @@
 ;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
 (setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
                                       #'colin/display-saying))
-                                      ;; #'doom-dashboard-widget-footer))
+;; #'doom-dashboard-widget-footer))
 
 
 
