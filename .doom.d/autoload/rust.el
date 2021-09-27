@@ -32,7 +32,7 @@ file."
 Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file it can find."
   (interactive)
   (when-let* ((project-root (doom-project-root))
-              (make-files (directory-files-recursively project-root "^Makefile.toml$"))
+              (make-files (directory-files-recursively project-root "^Makefile.toml$" nil #'colin/descend-into-dir nil))
               (dirs (mapcar (lambda (file) (file-name-directory file)) make-files))
               (first (car dirs))
               (buffer (current-buffer)))
@@ -54,7 +54,8 @@ Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file i
         (colin/in-terminal (format "sass --watch %s %s" scss css))))))
 
 (defun colin/descend-into-dir (directory)
-  "Should this DIRECTORY be descended into?"
+  "Should this DIRECTORY be descended into?
+Excludes things like git and build directories."
   (let ((base (file-name-base directory))
         (bads '("target" "node_modules")))
     (not (or (equal ?. (seq-first base))

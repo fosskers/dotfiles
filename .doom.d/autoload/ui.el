@@ -10,7 +10,10 @@
      "Genesis 17:1")
     ("You envy those who are clean and organised.")
     ("You love to sing.")
-    ("You like being surrounded by trees."))
+    ("You like being surrounded by trees.")
+    ("You love mountains.")
+    ("What would JP say?")
+    ("What would Dad say?"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)

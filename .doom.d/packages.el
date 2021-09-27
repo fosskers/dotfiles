@@ -39,6 +39,8 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
+(package! elisp-depmap :recipe (:host gitlab :repo "mtekman/elisp-depmap.el"))
+
 ;; For org-roam-ui
 (package! websocket)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))

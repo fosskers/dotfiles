@@ -35,7 +35,7 @@ function la
 end
 
 function hi
-    hledger is -VMA -b 2021-2 --pretty-tables $argv
+    hledger is -VMA -b 2021-7 --pretty-tables $argv
 end
 
 function hb
