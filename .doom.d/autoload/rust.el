@@ -27,6 +27,16 @@ file."
     (switch-to-buffer-other-window buffer)))
 
 ;;;###autoload
+(defun colin/seed-build ()
+  "Build every subproject in which a Makefile.toml is detected."
+  (interactive)
+  (when-let* ((project-root (doom-project-root))
+              (make-files (directory-files-recursively project-root "^Makefile.toml$" nil #'colin/descend-into-dir nil))
+              (dirs (mapcar (lambda (file) (file-name-directory file)) make-files)))
+    (dolist (dir dirs)
+      (colin/in-terminal (format "cd %s; cargo make build; exit" dir)))))
+
+;;;###autoload
 (defun colin/seed-watch ()
   "Open a 'cargo make watch' for every sub library that has a `Makefile.toml'.
 Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file it can find."

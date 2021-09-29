@@ -13,7 +13,15 @@
     ("You like being surrounded by trees.")
     ("You love mountains.")
     ("What would JP say?")
-    ("What would Dad say?"))
+    ("What would Dad say?")
+    ("Keep thy heart with all diligence;"
+     "for out of it are the issues of life."
+     "Proverbs 4:23")
+    ("Strange, is it not? that of the myriads who"
+     "Before us pass'd the door of Darkness through"
+     "Not one returns to tell us of the Road,"
+     "Which to discover we must travel too."
+     "Omar Khayyam"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)
@@ -23,6 +31,6 @@
 ;;;###autoload
 (defun colin/display-saying ()
   "Pick a random saying to display on the Doom splash screen."
-  (let* ((saying (seq-random-elt colin/dashboard-messages))
-         (centered (mapcar #'colin/dashboard-center saying)))
-    (insert "\n" (string-join centered "\n") "\n")))
+  (thread-last (seq-random-elt colin/dashboard-messages)
+    (mapcar #'colin/dashboard-center)
+    (funcall (lambda (centered) (insert "\n" (string-join centered "\n") "\n")))))

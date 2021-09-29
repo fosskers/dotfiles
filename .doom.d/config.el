@@ -44,6 +44,9 @@
       :n "N" #'evil-join
       :n "j" #'evil-ex-search-next)
 
+;; Be forever liberated from those stupid keyboard macros.
+(map! :map evil-normal-state-map "q" nil)
+
 (map! :map magit-mode-map
       :after magit
       :n "n" #'magit-next-line
