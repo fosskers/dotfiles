@@ -9,5 +9,6 @@
 ;;;###autoload
 (defun colin/apply-weights (items)
   "Given some numerical ITEMS, reduce them by their calculated weights."
-  (let ((weights (colin/weights (length items))))
-    (-zip-with '* weights items)))
+  (thread-last (length items)
+    (colin/weights)
+    (cl-mapcar #'* items)))

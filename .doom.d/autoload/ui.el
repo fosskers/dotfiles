@@ -21,7 +21,8 @@
      "Before us pass'd the door of Darkness through"
      "Not one returns to tell us of the Road,"
      "Which to discover we must travel too."
-     "Omar Khayyam"))
+     "Omar Khayyam")
+    ("節操"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)
