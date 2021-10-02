@@ -237,7 +237,8 @@
   :config
   (setq streak-formatters '(("purity" . (lambda (days) (format "清 %d" days)))
                             ("kanji" . (lambda (days) (format "漢字 %d" days)))
-                            ("clean" . (lambda (days) (format "掃 %d" days)))))
+                            ("clean" . (lambda (days) (format "掃 %d" days)))
+                            ("wheat" . (lambda (days) (format "麦 %d" days)))))
   (streak-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:

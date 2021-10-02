@@ -68,6 +68,11 @@
 
 (package! pkgbuild-mode)
 
+;; Holding back to avoid a bug.
+(package! vterm
+  :built-in 'prefer
+  :pin "2b1392cb2b14ec5bd0b7355197d5f353aa5d3983")
+
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;;(unpin! pinned-package)
