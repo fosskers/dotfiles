@@ -170,6 +170,10 @@
 (after! lsp-rust
   (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]))
 
+(after! lsp-ui
+  (setq lsp-ui-doc-max-width 50
+        lsp-ui-doc-delay 0.5))
+
 (after! web-mode
   (set-formatter! 'html-tidy
     '("prettier"
