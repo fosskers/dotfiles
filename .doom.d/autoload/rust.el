@@ -34,7 +34,8 @@ file."
               (make-files (directory-files-recursively project-root "^Makefile.toml$" nil #'colin/descend-into-dir nil))
               (dirs (mapcar (lambda (file) (file-name-directory file)) make-files)))
     (dolist (dir dirs)
-      (colin/in-terminal (format "cd %s; cargo make build; exit" dir)))))
+      (colin/in-terminal (format "cd %s; cargo make build; exit" dir)))
+    (colin/seed-build-scss project-root)))
 
 ;;;###autoload
 (defun colin/seed-watch ()
@@ -53,6 +54,14 @@ Also opens a top level 'cargo watch' and 'sass --watch' for every `.scss' file i
       (colin/in-terminal (format "cd %s; cargo make watch" dir)))
     (colin/seed-watch-scss project-root)
     (switch-to-buffer-other-frame buffer)))
+
+(defun colin/seed-build-scss (root)
+  "Convert to css every scss file found from ROOT downwards."
+  (interactive "fPath: ")
+  (let ((files (directory-files-recursively root "[.]scss$" nil #'colin/descend-into-dir nil)))
+    (dolist (scss files)
+      (let ((css (file-name-with-extension scss "css")))
+        (colin/in-terminal (format "sass %s %s; exit" scss css))))))
 
 ;;;###autoload
 (defun colin/seed-watch-scss (root)

@@ -9,7 +9,7 @@
 (defun colin/insert-date ()
   "Insert the DateTime at `point'."
   (interactive)
-  (insert (format-time-string "%Y-%m-%d %H:%M:%S %Z")))
+  (insert (format-time-string "%Y-%m-%d %H:%M")))
 
 ;;;###autoload
 (defun colin/window-go-home ()

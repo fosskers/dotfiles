@@ -3,11 +3,11 @@
 (defconst colin/dashboard-messages
   '(("A good name is rather to be chosen than great riches,"
      "and loving favour rather than silver and gold."
-     "Proverbs 22:1")
+     "-- Proverbs 22:1")
     ("And when Abram was ninety years old and nine,"
      "the Lord appeared to Abram, and said unto him,"
      "I am the Almighty God; walk before me, and be thou perfect."
-     "Genesis 17:1")
+     "-- Genesis 17:1")
     ("You envy those who are clean and organised.")
     ("You love to sing.")
     ("You like being surrounded by trees.")
@@ -16,13 +16,20 @@
     ("What would Dad say?")
     ("Keep thy heart with all diligence;"
      "for out of it are the issues of life."
-     "Proverbs 4:23")
+     "-- Proverbs 4:23")
     ("Strange, is it not? that of the myriads who"
      "Before us pass'd the door of Darkness through"
      "Not one returns to tell us of the Road,"
      "Which to discover we must travel too."
-     "Omar Khayyam")
-    ("節操"))
+     "-- Omar Khayyam")
+    ("節操")
+    ("But thou seest all are not of thy Train;"
+     "there be who Faith prefer, and Pietie to God,"
+     "though then to thee not visible,"
+     "when I alone seemed in thy World erroneous to dissent from all:"
+     "my Sect thou seest, now learn too late"
+     "how few sometimes may know, when thousands err."
+     "-- Abdiel, to Satan before the First Battle"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)

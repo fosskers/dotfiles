@@ -80,10 +80,6 @@
 
 (map! :leader "w G" #'colin/window-go-home)
 
-;; Flycheck bindings from Spacemacs.
-(map! :leader "e n" #'flycheck-next-error
-      :leader "e N" #'flycheck-previous-error)
-
 ;; --- UI --- ;;
 
 ;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
@@ -130,13 +126,13 @@
         org-tree-slide-deactivate-message "発表終了"
         org-tree-slide-modeline-display nil))
 
-(use-package! org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+;; (use-package! org-roam-ui
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow t
+;;         org-roam-ui-update-on-save t
+;;         org-roam-ui-open-on-start t))
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -166,13 +162,11 @@
 
 (after! lsp-haskell
   (setq lsp-haskell-formatting-provider "stylish-haskell"))
-
+;
+; lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
 (after! lsp-rust
-  (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]))
-
-(after! lsp-ui
-  (setq lsp-ui-doc-max-width 50
-        lsp-ui-doc-delay 0.5))
+  (setq lsp-rust-analyzer-proc-macro-enable t
+        lsp-rust-analyzer-experimental-proc-attr-macros t))
 
 (after! web-mode
   (set-formatter! 'html-tidy
@@ -193,6 +187,12 @@
 
 (after! vterm
   (add-hook 'vterm-exit-functions #'colin/vterm-kill-window-on-exit))
+
+;; --- FLYCHECK --- ;;
+;; (after! flycheck
+(map! :leader "e n" #'flycheck-next-error
+      :leader "e N" #'flycheck-previous-error)
+  ;; (setq flycheck-check-syntax-automatically '(save mode-enabled)))
 
 ;; --- IRC --- ;;
 
@@ -226,7 +226,15 @@
 (after! mu4e
   (setq smtpmail-smtp-server "smtp.fastmail.com"
         ;; STARTTLS, not SSL
-        smtpmail-smtp-service 587))
+        smtpmail-smtp-service 587
+        mu4e-headers-date-format "%F"
+        ;; The default value for :human-date set by Doom is 8, which is too
+        ;; narrow.
+        mu4e-headers-fields '((:account-stripe . 1)
+                              (:human-date . 12)
+                              (:flags . 6)
+                              (:from-or-to . 25)
+                              (:subject))))
 
 ;; --- MISC. --- ;;
 
@@ -235,14 +243,12 @@
 (setq alert-default-style 'notifications)
 
 (use-package! streak
-  ;; Comment this out and restore the lines in `packages.el' once a new release
-  ;; is made.
-  :load-path "/home/colin/code/emacs-lisp/streak"
   :config
   (setq streak-formatters '(("purity" . (lambda (days) (format "清 %d" days)))
                             ("kanji" . (lambda (days) (format "漢字 %d" days)))
-                            ("clean" . (lambda (days) (format "掃 %d" days)))
-                            ("wheat" . (lambda (days) (format "麦 %d" days)))))
+                            ("wheat" . (lambda (days) (format "麦 %d" days)))
+                            ("geri" . (lambda (days) (format "痢 %d" days)))
+                            ("german" . (lambda (days) (format "独 %d" days)))))
   (streak-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:

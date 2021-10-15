@@ -39,15 +39,20 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;;(package! builtin-package :pin "1a2b3c4d5e")
 
-(package! elisp-depmap :recipe (:host gitlab :repo "mtekman/elisp-depmap.el"))
+;; (package! elisp-depmap :recipe (:host gitlab :repo "mtekman/elisp-depmap.el"))
 
 ;; For org-roam-ui
-(package! websocket)
-(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+;; (package! websocket)
+;; (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 
 ;; WIP `ob-julia' replacement.
-(package! ob-julia
-  :recipe (:host github :repo "nico202/ob-julia" :files ("*.el" "julia")))
+;; (package! ob-julia
+;;   :recipe (:host github :repo "nico202/ob-julia" :files ("*.el" "julia")))
+
+;; (package! ob-typescript
+;;   :recipe (:host github :repo "lurdan/ob-typescript" :files ("*.el" "typescript")))
+
+(package! mu4e-alert :disable t)
 
 (package! org-tree-slide
   :recipe (:host github :repo "takaxp/org-tree-slide"))
@@ -63,13 +68,26 @@
 (package! hledger-mode
   :recipe (:host github :repo "narendraj9/hledger-mode"))
 
-;; (package! streak
-;;   :recipe (:host github :repo "fosskers/streak"))
-
 (package! pkgbuild-mode)
+
+;; --- UNDER DEVELOPMENT --- ;;
+
+(package! streak
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/streak"
+           :files ("streak.el")))
+
+(package! rustic
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/rustic"
+           :files ("*.el")))
+
+;; --- BUGS --- ;;
 
 ;; Holding back to avoid a bug.
 (package! vterm :pin "2b1392cb2b14ec5bd0b7355197d5f353aa5d3983")
+
+(package! info-look
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/info-look"
+           :files ("info-look.el")))
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
