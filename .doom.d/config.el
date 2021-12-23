@@ -251,6 +251,10 @@
                             ("german" . (lambda (days) (format "独 %d" days)))))
   (streak-mode))
 
+;; ---Bugs --- ;;
+(setq auth-sources (list (concat doom-etc-dir "authinfo.gpg")
+                         "~/.authinfo.gpg"))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

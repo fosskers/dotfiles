@@ -10,5 +10,22 @@
 (defun colin/apply-weights (items)
   "Given some numerical ITEMS, reduce them by their calculated weights."
   (thread-last (length items)
-    (colin/weights)
-    (cl-mapcar #'* items)))
+               (colin/weights)
+               (cl-mapcar #'* items)))
+
+;;;###autoload
+(defun colin/mean (items)
+  "Find the average value of some numerical ITEMS."
+  (/ (apply #'+ items)
+     (float (length items))))
+
+;;;###autoload
+(defun colin/median (items)
+  "Find the median value of some ITEMS."
+  (let* ((len (length items))
+         (med (/ len 2))
+         (sorted (seq-sort #'< items)))
+    (cond ((cl-evenp len) (/ (+ (nth med sorted)
+                                (nth (1- med) sorted))
+                             2.0))
+          (t (nth med sorted)))))

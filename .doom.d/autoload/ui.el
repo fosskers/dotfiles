@@ -8,10 +8,25 @@
      "the Lord appeared to Abram, and said unto him,"
      "I am the Almighty God; walk before me, and be thou perfect."
      "-- Genesis 17:1")
+    ("Vater unser im Himmel,"
+     "geheiligt werde dein Name."
+     "Dein Reich komme."
+     "Dein Wille geschehe,"
+     "wie in Himmel so auf Erden."
+     "Unser tägliches Brot gib uns heute."
+     "Und vergib uns unsere Schuld,"
+     "wie auch wir vergeben unsern Schuldigern."
+     "Und führe uns nicht in Versuchung,"
+     "sondern erlöse uns von dem Bösen."
+     "Denn dein ist das Reich und die Kraft"
+     "und die Herrlichkeit in Ewigkeit."
+     "Amen.")
     ("You envy those who are clean and organised.")
     ("You love to sing.")
     ("You like being surrounded by trees.")
     ("You love mountains.")
+    ("You are a language learner.")
+    ("You love plane trips.")
     ("What would JP say?")
     ("What would Dad say?")
     ("Keep thy heart with all diligence;"
@@ -23,13 +38,24 @@
      "Which to discover we must travel too."
      "-- Omar Khayyam")
     ("節操")
+    ("Set up your environment for success.")
     ("But thou seest all are not of thy Train;"
      "there be who Faith prefer, and Pietie to God,"
      "though then to thee not visible,"
      "when I alone seemed in thy World erroneous to dissent from all:"
      "my Sect thou seest, now learn too late"
      "how few sometimes may know, when thousands err."
-     "-- Abdiel, to Satan before the First Battle"))
+     "-- Abdiel, to Satan before the First Battle")
+    ("Live to 120.")
+    ("Devotees of Zen remind themselves that the spot"
+     "upon which they sit for meditation is the throne"
+     "of all the buddhas of the past and future.")
+    ("When you're lost, get a map.")
+    ("Stop doing things for kids.")
+    ("The dose makes the poison.")
+    ("You should be comin' and goin'."
+     "-- Chris Rock")
+    ("Get up."))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)

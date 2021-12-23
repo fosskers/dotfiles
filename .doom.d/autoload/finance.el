@@ -17,12 +17,12 @@ conversion rate at the end."
     (round (* usd usd-to-cad))))
 
 ;;;###autoload
-(defun colin/hledger-transfers (income liabilities extra)
+(cl-defun colin/hledger-transfers (income liabilities &key (expenses 1500))
   "Automate monthly transfers, given some INCOME and LIABILITIES.
-Adds EXTRA to the budget for this month."
+An EXPENSES value can also be added manually."
   (interactive "nIncome: \nnMastercard: ")
   (when-let* ((buffer (find-file-noselect hledger-jfile))
-              (raw (colin/hledger-transfers-raw income liabilities extra)))
+              (raw (colin/hledger-transfers-raw income liabilities expenses)))
     (with-current-buffer buffer
       (goto-char (point-max))
       (insert "\n")
@@ -30,19 +30,20 @@ Adds EXTRA to the budget for this month."
       (save-buffer))))
 
 ;;;###autoload
-(defun colin/hledger-transfers-raw (income liabilities extra)
-  "Given a month's INCOME, its LIABILITIES, and some EXTRA cash to pad the budget, produce a valid Hledger transaction string."
+(defun colin/hledger-transfers-raw (income liabilities expenses)
+  "Given a month's INCOME, its LIABILITIES, and expected EXPENSES, produce a valid Hledger transaction string."
   (let* ((today (format-time-string "%Y-%m-%d"))
          (tax (* income 0.30))
          (take-home (- income tax))
          (donation (* take-home 0.10))
          (tfsa (* take-home 0.10))
-         (base-expenses 1500))
+         (crypto (* take-home 0.10)))
     (concat (format "%s Monthly Transfers\n" today)
             (format "    assets:koho:vault:tax       %.2f C\n" tax)
             (format "    assets:koho:vault:donation  %.2f C\n" donation)
             (format "    assets:qtrade:tfsa          %.2f C\n" tfsa)
+            (format "    assets:crypto:newton        %.2f C\n" crypto)
             (format "    liabilities:bs:mastercard   %.2f C\n" liabilities)
-            (format "    assets:koho:spend         = %.2f C\n" (+ base-expenses extra))
-            ;; Germany gets all the leftovers, or if there was a deficit, money is pulled back out.
-            (format "    assets:koho:germany"))))
+            (format "    assets:koho:spend         = %.2f C\n" expenses)
+            ;; Japan gets all the leftovers, or if there was a deficit, money is pulled back out.
+            (format "    assets:koho:vault:japan"))))
