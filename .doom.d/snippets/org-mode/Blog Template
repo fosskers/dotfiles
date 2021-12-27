@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Blog Template
+# uuid: fc313b2e-d587-4d01-9254-88a4bb215cc4
+# condition: t
+# --
+
+#+TITLE: $1
+#+DATE: `(format-time-string "%Y-%m-%d")`
+#+AUTHOR: Colin
+#+CATEGORY: $2
+
+$0
