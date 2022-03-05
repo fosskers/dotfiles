@@ -20,7 +20,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-unicode-font (font-spec :family "Julia Mono"))
+;; (setq doom-unicode-font (font-spec :family "Julia Mono"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -95,6 +95,7 @@
       org-roam-directory "/home/colin/sync/org-roam"
       org-agenda-files '("/home/colin/sync/colin.org"
                          "/home/colin/sync/org/2021.org"
+                         "/home/colin/sync/org/2022.org"
                          "/home/colin/sync/org/coding.org"
                          "/home/colin/sync/org/sysadmin.org"
                          "/home/colin/contracting/upwork.org"
@@ -141,7 +142,7 @@
   (setq org-super-agenda-groups '((:name "Open Source" :file-path "coding.org")
                                   (:name "Sys Admin" :file-path "sysadmin.org")
                                   (:name "Personal" :file-path "colin.org")
-                                  (:name "Life" :file-path "2021.org")
+                                  (:name "Life" :file-path "2021.org" :file-path "2022.org")
                                   (:name "Forethink" :tag "forethink")
                                   (:name "Freelancing" :tag "admin"))))
 
@@ -167,6 +168,13 @@
 (after! lsp-rust
   (setq lsp-rust-analyzer-proc-macro-enable t
         lsp-rust-analyzer-experimental-proc-attr-macros t))
+
+;; (after! lsp-pyright
+;;   (setq lsp-pyright-typechecking-mode "strict"))
+
+;; (after! lsp-python
+;;   (set-formatter! 'autopep8
+;;     '("autopep8" "--in-place")))
 
 (after! web-mode
   (set-formatter! 'html-tidy
@@ -251,7 +259,7 @@
                             ("german" . (lambda (days) (format "独 %d" days)))))
   (streak-mode))
 
-;; ---Bugs --- ;;
+;; --- Bugs --- ;;
 (setq auth-sources (list (concat doom-etc-dir "authinfo.gpg")
                          "~/.authinfo.gpg"))
 

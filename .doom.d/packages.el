@@ -76,14 +76,7 @@
   :recipe (:local-repo "/home/colin/code/emacs-lisp/streak"
            :files ("streak.el")))
 
-(package! rustic
-  :recipe (:local-repo "/home/colin/code/emacs-lisp/rustic"
-           :files ("*.el")))
-
 ;; --- BUGS --- ;;
-
-;; Holding back to avoid a bug.
-(package! vterm :pin "2b1392cb2b14ec5bd0b7355197d5f353aa5d3983")
 
 (package! info-look
   :recipe (:local-repo "/home/colin/code/emacs-lisp/info-look"

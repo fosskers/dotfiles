@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: Monthly Finances Checklist
+# uuid: 4ced8848-fe94-4274-b0de-aa157b248893
+# condition: t
+# --
+
++ [ ] KOHO Balances
++ [ ] Tangerine Balances
++ [ ] Qtrade Balances
++ [ ] RRSP Purchase
++ [ ] Blueshore Balances
++ [ ] Paybacks
++ [ ] Donation Rebalancing
++ [ ] Crypto Interest
++ [ ] Crypto Balances
++ [ ] Next Month's Budget

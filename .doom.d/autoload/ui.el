@@ -53,9 +53,13 @@
     ("When you're lost, get a map.")
     ("Stop doing things for kids.")
     ("The dose makes the poison.")
+    ("One who cannot cast away a treasure at need is in fetters."
+     "-- Aragorn")
     ("You should be comin' and goin'."
      "-- Chris Rock")
-    ("Get up."))
+    ("Get up.")
+    ("Pupil: Where do we go when we die?"
+     "Master: How badly do you want to know?"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)
