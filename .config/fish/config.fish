@@ -2,8 +2,11 @@ set -x PATH /bin /usr/local/bin /usr/bin /usr/sbin /sbin '/home/colin/.local/bin
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
 set -x EDITOR emacs
-set -x JAVA_HOME /usr/lib/jvm/default
 set -x DOOMDIR '/home/colin/dotfiles/.doom.d'
+
+# Java
+set -x JAVA_HOME /usr/lib/jvm/default
+# set -x _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # Wayland
 set -x MOZ_ENABLE_WAYLAND 1
@@ -35,7 +38,7 @@ function la
 end
 
 function hi
-    hledger is -VMA -b 2021-7 --pretty-tables $argv
+    hledger is -VMA -b 2022 --pretty-tables $argv
 end
 
 function hb
@@ -43,7 +46,7 @@ function hb
 end
 
 function hc
-    hledger cf -VMT -b 2021-02 $argv
+    hledger cf -VMT -b 2022 $argv
 end
 
 function hbud
