@@ -246,6 +246,8 @@
 
 ;; --- MISC. --- ;;
 
+(set-frame-parameter nil 'alpha-background 80)
+
 (add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . pkgbuild-mode))
 
 (setq alert-default-style 'notifications)
