@@ -34,8 +34,10 @@
   "Colour the cell at point."
   (when-let* ((cell (org-table-get y x))
               (nmbr (string-to-number cell))
-              (face (cond ((> nmbr 0.5) '(:background "green"))
+              (face (cond ((> nmbr 0.5) '(:foreground "black" :background "green"))
+                          ((> nmbr 0.3) '(:foreground "black" :background "#90EE90"))
                           ((< nmbr -0.5) '(:foreground "black" :background "red"))
+                          ((< nmbr -0.3) '(:foreground "black" :background "orange"))
                           (t nil))))
     (when face
       (let ((overlay (make-overlay
