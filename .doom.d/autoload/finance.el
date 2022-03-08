@@ -47,6 +47,6 @@ An EXPENSES value can also be added manually."
             (format "    assets:koho:vault:donation  %.2f C\n" donation)
             ;; (format "    assets:koho:vault:japan     %.2f C\n" japan)
             ;; (format "    assets:qtrade:tfsa          %.2f C\n" tfsa)
-            (format "    assets:crypto:newton        %.2f C  ; hodl\n" crypto)
+            (format "    assets:tan:chequing        %.2f C  ; hodl\n" crypto)
             (format "    assets:koho:spend         = %.2f C\n" expenses)
-            (format "    assets:crypto:newton  ; japan\n"))))
+            (format "    assets:tan:chequing  ; japan\n"))))

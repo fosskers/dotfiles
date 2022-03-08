@@ -59,7 +59,8 @@
      "-- Chris Rock")
     ("Get up.")
     ("Pupil: Where do we go when we die?"
-     "Master: How badly do you want to know?"))
+     "Master: How badly do you want to know?")
+    ("本物の美術家は出荷する"))
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)
