@@ -76,6 +76,10 @@
   :recipe (:local-repo "/home/colin/code/emacs-lisp/streak"
            :files ("streak.el")))
 
+(package! org-table-color
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/org-table-color"
+           :files ("org-table-color.el")))
+
 ;; --- BUGS --- ;;
 
 (package! info-look

@@ -164,8 +164,8 @@
 
 (after! lsp-haskell
   (setq lsp-haskell-formatting-provider "stylish-haskell"))
-;
-; lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
+                                        ;
+                                        ; lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
 (after! lsp-rust
   (setq lsp-rust-analyzer-proc-macro-enable t
         lsp-rust-analyzer-experimental-proc-attr-macros t))
@@ -198,10 +198,11 @@
   (add-hook 'vterm-exit-functions #'colin/vterm-kill-window-on-exit))
 
 ;; --- FLYCHECK --- ;;
-;; (after! flycheck
 (map! :leader "e n" #'flycheck-next-error
       :leader "e N" #'flycheck-previous-error)
-  ;; (setq flycheck-check-syntax-automatically '(save mode-enabled)))
+
+(after! flycheck
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
 
 ;; --- IRC --- ;;
 
@@ -244,6 +245,11 @@
                               (:flags . 6)
                               (:from-or-to . 25)
                               (:subject))))
+
+;; --- RSS --- ;;
+
+(after! elfeed-goodies
+  (setq elfeed-goodies/feed-source-column-width 20))
 
 ;; --- MISC. --- ;;
 

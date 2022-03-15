@@ -33,8 +33,8 @@
 ;;;###autoload
 (defun colin/correlation (table x-pos y-pos)
   "Find the correlation of two variables (columns) in a TABLE."
-  (let* ((x-vals (mapcar (lambda (row) (nth x-pos row)) table))
-         (y-vals (mapcar (lambda (row) (nth y-pos row)) table))
+  (let* ((x-vals (seq-filter #'numberp (mapcar (lambda (row) (nth x-pos row)) table)))
+         (y-vals (seq-filter #'numberp (mapcar (lambda (row) (nth y-pos row)) table)))
          (x-mean (colin/mean x-vals))
          (y-mean (colin/mean y-vals))
          (x-diff (mapcar (lambda (x) (- x x-mean)) x-vals))
@@ -49,11 +49,6 @@
   "Given START and END indices into a TABLE, produce a matrix of correlation values and note it with LABELS."
   (cons (cons "" labels)
         (mapcar (lambda (x) (cons (nth (- x start) labels)
-                                  (mapcar (lambda (y) (let* ((cor (colin/correlation table x y))
-                                                             (formatted (format "%.2f" cor)))
-                                                        (if (> cor 0.5)
-                                                            ;; (propertize formatted 'face '(:background "green"))
-                                                            (propertize formatted 'face 'italic)
-                                                          formatted)))
+                                  (mapcar (lambda (y) (format "%.2f" (colin/correlation table x y)))
                                           (number-sequence start end))))
                 (number-sequence start end))))
