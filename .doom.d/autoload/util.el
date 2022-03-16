@@ -20,3 +20,8 @@ Does nothing if there is only one frame open."
           (split-window window nil 'left nil)
           (set-window-buffer window buffer))))))
 
+(defun colin/lisp-object-to-number (item)
+  "Try to yield a number from ITEM, depending on its type."
+  (cond ((numberp item) item)
+        ((stringp item) (let ((str (ignore-errors (read (string-trim item)))))
+                          (when (numberp str) str)))))

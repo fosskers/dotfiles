@@ -33,8 +33,8 @@
 ;;;###autoload
 (defun colin/correlation (table x-pos y-pos)
   "Find the correlation of two variables (columns) in a TABLE."
-  (let* ((x-vals (seq-filter #'numberp (mapcar (lambda (row) (nth x-pos row)) table)))
-         (y-vals (seq-filter #'numberp (mapcar (lambda (row) (nth y-pos row)) table)))
+  (let* ((x-vals (seq-filter #'identity (mapcar (lambda (row) (colin/lisp-object-to-number (nth x-pos row))) table)))
+         (y-vals (seq-filter #'identity (mapcar (lambda (row) (colin/lisp-object-to-number (nth y-pos row))) table)))
          (x-mean (colin/mean x-vals))
          (y-mean (colin/mean y-vals))
          (x-diff (mapcar (lambda (x) (- x x-mean)) x-vals))
@@ -45,10 +45,22 @@
     (/ numer denom)))
 
 ;;;###autoload
-(defun colin/correlation-matrix (table labels start end)
-  "Given START and END indices into a TABLE, produce a matrix of correlation values and note it with LABELS."
-  (cons (cons "" labels)
-        (mapcar (lambda (x) (cons (nth (- x start) labels)
-                                  (mapcar (lambda (y) (format "%.2f" (colin/correlation table x y)))
-                                          (number-sequence start end))))
-                (number-sequence start end))))
+(defun colin/correlation-matrix (table-name)
+  "Given a TABLE-NAME, produce a correlation matrix of its data."
+  (save-excursion
+    (colin/org-table-goto-named table-name)
+    (org-table-analyze)
+    (let* ((col-names (mapcar #'car org-table-column-names))
+           (col-ixs (mapcar (lambda (pair) (1- (string-to-number (cdr pair)))) org-table-column-names))
+           (indices (number-sequence 0 (1- (length col-names))))
+           (rows (thread-last (-drop 2 (org-table-to-lisp))
+                              (mapcar (lambda (row) (seq-filter #'identity
+                                                           (cl-mapcar (lambda (i a) (when (seq-contains-p col-ixs i) a))
+                                                               (number-sequence 0 (1- (length row)))
+                                                               row)))))))
+      (cons (cons "" col-names)
+            (cons 'hline
+                  (mapcar (lambda (y) (cons (nth y col-names)
+                                       (mapcar (lambda (x) (format "%.2f" (colin/correlation rows x y)))
+                                               indices)))
+                          indices))))))

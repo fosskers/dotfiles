@@ -16,3 +16,10 @@
   (+org/toggle-fold)
   (+org/toggle-fold))
 
+;;;###autoload
+(defun colin/org-table-goto-named (name)
+  "Move `point' to the start of an org table named NAME."
+  (interactive "sTable name: ")
+  (goto-char (point-min))
+  (re-search-forward (format "#\\+name: %s" name))
+  (forward-line))
