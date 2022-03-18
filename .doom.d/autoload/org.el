@@ -27,7 +27,9 @@
 ;;;###autoload
 (defun colin/org-table-select (columns table)
   "Given the names of COLUMNS, filter a TABLE to contain only those.
-Preserves unnamed columns, assuming they're providing row labels, etc."
+Preserves unnamed columns, assuming they're providing row labels, etc.
+
+colin/org-table-select :: [String] -> Table -> Table"
   (when-let* ((col-names (colin/org-table-columns table))
               (filtered (seq-filter (lambda (pair) (-contains-p columns (cdr pair))) col-names))
               (first-col (car (car filtered))))
@@ -43,7 +45,7 @@ Preserves unnamed columns, assuming they're providing row labels, etc."
 (defun colin/org-table-columns (table)
   "Retrieve the names and 0-based indices of the columns of a TABLE.
 
-Table -> [(Int, String)]"
+colin/org-table-columns :: Table -> [(Int, String)]"
   (let* ((top-row (car table))
          (cols (length top-row)))
     (seq-filter #'identity
@@ -53,6 +55,26 @@ Table -> [(Int, String)]"
                                (thing (cons i thing))))
                            (number-sequence 0 (1- cols))
                            top-row))))
+
+;;;###autoload
+(defun colin/org-table-get-column (column table)
+  "Fetch a COLUMN from a TABLE.
+
+colin/org-table-get-column :: String -> Table -> [String]"
+  (when-let* ((pairs (colin/org-table-columns table))
+              (index (car (-find (lambda (pair) (string-equal column (cdr pair))) pairs))))
+    (mapcar (lambda (row) (nth index row))
+            (-drop 2 table))))
+
+;;;###autoload
+(defun colin/org-table-to-lisp (table-name)
+  "Find a table named by TABLE-NAME and yields its contents as a Lisp object.
+In this case, the Table is a list-of-lists, except for the second row, which is
+assumed to be the `'hline' symbol.
+
+colin/org-table-get-table :: String -> Table"
+  (colin/org-table-goto-named table-name)
+  (org-table-to-lisp))
 
 ;;;###autoload
 (defun colin/org-can-i-go-home-yet ()
