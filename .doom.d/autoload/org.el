@@ -32,7 +32,7 @@ Preserves unnamed columns, assuming they're providing row labels, etc.
 colin/org-table-select :: [String] -> Table -> Table"
   (when-let* ((col-names (colin/org-table-columns table))
               (filtered (seq-filter (lambda (pair) (-contains-p columns (cdr pair))) col-names))
-              (first-col (car (car filtered))))
+              (first-col (car (car col-names))))
     (thread-last (-drop 2 table)
                  (mapcar (lambda (row)
                            (append (-take first-col row)
