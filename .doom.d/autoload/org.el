@@ -67,6 +67,16 @@ colin/org-table-get-column :: String -> Table -> [String]"
             (-drop 2 table))))
 
 ;;;###autoload
+(defun colin/org-table-get-rows (rows table)
+  "Fetch the given ROWS from a TABLE.
+
+colin/org-table-get-rows :: [String] -> Table -> Table"
+  (thread-last
+    (-drop 2 table)
+    (seq-filter (lambda (row) (-contains-p rows (car row))))
+    (append (-take 2 table))))
+
+;;;###autoload
 (defun colin/org-table-to-lisp (table-name)
   "Find a table named by TABLE-NAME and yields its contents as a Lisp object.
 In this case, the Table is a list-of-lists, except for the second row, which is
