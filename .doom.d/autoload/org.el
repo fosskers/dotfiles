@@ -25,10 +25,20 @@
   (forward-line))
 
 ;;;###autoload
-(defun colin/org-table-select (table columns)
+(defun colin/org-table-select (columns table)
   "Given the names of COLUMNS, filter a TABLE to contain only those.
 Preserves unnamed columns, assuming they're providing row labels, etc."
-  (let ((col-names (colin/org-table-columns table)))))
+  (when-let* ((col-names (colin/org-table-columns table))
+              (filtered (seq-filter (lambda (pair) (-contains-p columns (cdr pair))) col-names))
+              (first-col (car (car filtered))))
+    (thread-last (-drop 2 table)
+                 (mapcar (lambda (row)
+                           (append (-take first-col row)
+                                   (mapcar (lambda (pair) (nth (car pair) row))
+                                           filtered))))
+                 (cons 'hline)
+                 (cons (append (-repeat first-col "")
+                               (mapcar #'cdr filtered))))))
 
 (defun colin/org-table-columns (table)
   "Retrieve the names and 0-based indices of the columns of a TABLE.
@@ -37,9 +47,10 @@ Table -> [(Int, String)]"
   (let* ((top-row (car table))
          (cols (length top-row)))
     (seq-filter #'identity
-                (cl-mapcar (lambda (i item) (pcase item
-                                             ((or "" "!") nil)
-                                             (thing (cons i thing))))
+                (cl-mapcar (lambda (i item)
+                             (pcase item
+                               ((or "" "!") nil)
+                               (thing (cons i thing))))
                            (number-sequence 0 (1- cols))
                            top-row))))
 
