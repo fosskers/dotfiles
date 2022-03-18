@@ -32,7 +32,15 @@ Preserves unnamed columns, assuming they're providing row labels, etc.")
 (defun colin/org-table-columns (table)
   "Retrieve the names and 0-based indices of the columns of a TABLE.
 
-Table -> [(Int, String)]")
+Table -> [(Int, String)]"
+  (let* ((top-row (car table))
+         (cols (length top-row)))
+    (seq-filter #'identity
+                (cl-mapcar (lambda (i item) (pcase item
+                                             ((or "" "!") nil)
+                                             (thing (cons i thing))))
+                           (number-sequence 0 (1- cols))
+                           top-row))))
 
 ;;;###autoload
 (defun colin/org-can-i-go-home-yet ()
