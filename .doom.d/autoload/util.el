@@ -20,8 +20,18 @@ Does nothing if there is only one frame open."
           (split-window window nil 'left nil)
           (set-window-buffer window buffer))))))
 
+;;;###autoload
 (defun colin/lisp-object-to-number (item)
-  "Try to yield a number from ITEM, depending on its type."
+  "Try to yield a number from ITEM, depending on its type.
+
+a -> Maybe Number"
   (cond ((numberp item) item)
         ((stringp item) (let ((str (ignore-errors (read (string-trim item)))))
                           (when (numberp str) str)))))
+
+(defun colin/filter-non-nil (items)
+  "Remove all elements from ITEMS that are nil.
+
+[Maybe a] -> [a]
+"
+  (seq-filter #'identity items))

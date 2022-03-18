@@ -241,7 +241,7 @@
         ;; The default value for :human-date set by Doom is 8, which is too
         ;; narrow.
         mu4e-headers-fields '((:account-stripe . 1)
-                              (:human-date . 12)
+                              (:human-date . 14)
                               (:flags . 6)
                               (:from-or-to . 25)
                               (:subject))))

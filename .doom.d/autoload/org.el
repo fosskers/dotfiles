@@ -23,3 +23,23 @@
   (goto-char (point-min))
   (re-search-forward (format "#\\+name: %s" name))
   (forward-line))
+
+;;;###autoload
+(defun colin/org-table-select (table columns)
+  "Given the names of COLUMNS, filter a TABLE to contain only those.
+Preserves unnamed columns, assuming they're providing row labels, etc.")
+
+(defun colin/org-table-columns (table)
+  "Retrieve the names and 0-based indices of the columns of a TABLE.
+
+Table -> [(Int, String)]")
+
+;;;###autoload
+(defun colin/org-can-i-go-home-yet ()
+  "Can I go home yet?"
+  (interactive)
+  (org-babel-with-temp-filebuffer "/home/colin/contracting/upwork.org"
+    (let* ((minutes (org-clock-sum-today))
+           (hours (/ minutes 60.0)))
+      (cond ((>= hours 5.0) (message "%.2f hours: You can go home!" hours))
+            (t (message "%.2f hours: Keep at it." hours))))))
