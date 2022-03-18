@@ -73,7 +73,10 @@ colin/org-table-get-column :: String -> Table -> [String]"
 colin/org-table-get-rows :: [String] -> Table -> Table"
   (thread-last
     (-drop 2 table)
-    (seq-filter (lambda (row) (-contains-p rows (car row))))
+    (seq-filter (lambda (row)
+                  (pcase row
+                    ((seq "#" key) (-contains-p rows key))
+                    ((seq key) (-contains-p rows key)))))
     (append (-take 2 table))))
 
 ;;;###autoload
