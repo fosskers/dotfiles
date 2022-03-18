@@ -27,7 +27,8 @@
 ;;;###autoload
 (defun colin/org-table-select (table columns)
   "Given the names of COLUMNS, filter a TABLE to contain only those.
-Preserves unnamed columns, assuming they're providing row labels, etc.")
+Preserves unnamed columns, assuming they're providing row labels, etc."
+  (let ((col-names (colin/org-table-columns table)))))
 
 (defun colin/org-table-columns (table)
   "Retrieve the names and 0-based indices of the columns of a TABLE.
