@@ -55,16 +55,16 @@ instead of crashing."
 (defun colin/correlation-matrix (table-name)
   "Given a TABLE-NAME, produce a correlation matrix of its data."
   (save-excursion
-    (colin/org-table-goto-named table-name)
-    (org-table-analyze)
-    (let* ((col-names (mapcar #'car org-table-column-names))
-           (col-ixs (mapcar (lambda (pair) (1- (string-to-number (cdr pair)))) org-table-column-names))
-           (indices (number-sequence 0 (1- (length col-names))))
-           (rows (thread-last (-drop 2 (org-table-to-lisp))
-                              (mapcar (lambda (row) (seq-filter #'identity
-                                                                (cl-mapcar (lambda (i a) (when (seq-contains-p col-ixs i) a))
-                                                                           (number-sequence 0 (1- (length row)))
-                                                                           row)))))))
+    (when-let* ((table (colin/org-table-to-lisp table-name))
+                (col-pairs (colin/org-table-columns table))
+                (col-ixs (mapcar #'car col-pairs))
+                (col-names (mapcar #'cdr col-pairs))
+                (indices (number-sequence 0 (1- (length col-names))))
+                (rows (thread-last (-drop 2 table)
+                                   (mapcar (lambda (row)
+                                             (colin/filter-non-nil (cl-mapcar (lambda (i a) (when (seq-contains-p col-ixs i) a))
+                                                                              (number-sequence 0 (1- (length row)))
+                                                                              row)))))))
       (cons (cons "" col-names)
             (cons 'hline
                   (mapcar (lambda (y) (cons (nth y col-names)
