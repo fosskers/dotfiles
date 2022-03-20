@@ -70,6 +70,7 @@
 ;;;###autoload
 (defun colin/display-saying ()
   "Pick a random saying to display on the Doom splash screen."
-  (thread-last (seq-random-elt colin/dashboard-messages)
-    (mapcar #'colin/dashboard-center)
-    (funcall (lambda (centered) (insert "\n" (string-join centered "\n") "\n")))))
+  (arr-<>> (seq-random-elt colin/dashboard-messages)
+           (mapcar #'colin/dashboard-center)
+           (string-join <> "\n")
+           (insert "\n" <> "\n")))

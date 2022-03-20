@@ -19,6 +19,7 @@
   (/ (apply #'+ items)
      (float (length items))))
 
+;;;###autoload
 (defun colin/mean-lenient (items)
   "Find the average value of some numerical ITEMS.
 Unlike `colin/mean', will not crash if some elements are nil."

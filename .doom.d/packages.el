@@ -80,6 +80,9 @@
   :recipe (:local-repo "/home/colin/code/emacs-lisp/org-table-color"
            :files ("org-table-color.el")))
 
+(package! arr
+  :recipe (:host github :repo "jeetelongname/el-arrows"))
+
 ;; --- BUGS --- ;;
 
 (package! info-look

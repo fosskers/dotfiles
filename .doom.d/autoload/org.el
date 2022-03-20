@@ -93,7 +93,7 @@ colin/org-table-get-rows-with :: (String -> Bool) -> Table -> Table"
 In this case, the Table is a list-of-lists, except for the second row, which is
 assumed to be the `'hline' symbol.
 
-colin/org-table-get-table :: String -> Table"
+colin/org-table-to-lisp :: String -> Table"
   (colin/org-table-goto-named table-name)
   (org-table-to-lisp))
 
