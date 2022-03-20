@@ -71,12 +71,20 @@ colin/org-table-get-column :: String -> Table -> [String]"
   "Fetch the given ROWS from a TABLE.
 
 colin/org-table-get-rows :: [String] -> Table -> Table"
+  (colin/org-table-get-rows-with (lambda (key) (-contains-p rows key))
+                                 table))
+
+;;;###autoload
+(defun colin/org-table-get-rows-with (pred table)
+  "Fetch rows from a TABLE based on a PRED matching on the keys.
+
+colin/org-table-get-rows-with :: (String -> Bool) -> Table -> Table"
   (thread-last
     (-drop 2 table)
     (seq-filter (lambda (row)
                   (pcase row
-                    ((seq "#" key) (-contains-p rows key))
-                    ((seq key) (-contains-p rows key)))))
+                    ((seq "#" key) (funcall pred key))
+                    ((seq key) (funcall pred key)))))
     (append (-take 2 table))))
 
 ;;;###autoload

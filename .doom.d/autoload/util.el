@@ -29,9 +29,16 @@ a -> Maybe Number"
         ((stringp item) (let ((str (ignore-errors (read (string-trim item)))))
                           (when (numberp str) str)))))
 
+;;;###autoload
 (defun colin/filter-non-nil (items)
   "Remove all elements from ITEMS that are nil.
 
 [Maybe a] -> [a]
 "
   (seq-filter #'identity items))
+
+;;;###autoload
+(defun colin/mu4e-delete-lock ()
+  "Delete a stuck xapian lock."
+  (interactive)
+  (delete-file "/home/colin/.cache/mu/xapian/flintlock"))
