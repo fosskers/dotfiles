@@ -26,7 +26,9 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-rouge)
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one
+;;       doom-one-brighter-comments t)
+(setq doom-theme 'tron-legacy)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -83,9 +85,14 @@
 
 ;; --- UI --- ;;
 
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-loaded)
+(add-hook! '+doom-dashboard-functions :append #'colin/display-saying)
+
 ;; (add-to-list '+doom-dashboard-functions #'colin/display-saying 'append)
-(setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
-                                      #'colin/display-saying))
+;; (setq +doom-dashboard-functions (list #'doom-dashboard-widget-banner
+;;                                       #'colin/display-saying))
 ;; #'doom-dashboard-widget-footer))
 
 
@@ -100,6 +107,7 @@
                          "/home/colin/sync/org/coding.org"
                          "/home/colin/sync/org/sysadmin.org"
                          "/home/colin/contracting/upwork.org"
+                         "/home/colin/contracting/caddi.org"
                          "/home/colin/code/haskell/real-world-software-dev/course.org"
                          "/home/colin/sync/japan/japan.org"))
 
@@ -144,6 +152,7 @@
                                   (:name "Sys Admin" :file-path "sysadmin.org")
                                   (:name "Personal" :file-path "colin.org")
                                   (:name "Life" :file-path "2021.org" :file-path "2022.org")
+                                  (:name "CADDi" :file-path "caddi.org")
                                   (:name "Forethink" :tag "forethink")
                                   (:name "Freelancing" :tag "admin"))))
 
@@ -189,6 +198,9 @@
   (setq sly-command-switch-to-existing-lisp 'always)
   (set-popup-rule! "^\\*sly-mrepl" :side 'right :size 0.5 :quit nil :ttl nil))
 
+(after! geiser-chicken
+  (setq geiser-chicken-binary "chicken-csi"))
+
 ;; (after! lsp-mode
 ;;   (setq lsp-headerline-breadcrumb-enable t))
 
@@ -202,7 +214,8 @@
       :leader "e N" #'flycheck-previous-error)
 
 (after! flycheck
-  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)
+        flycheck-scheme-chicken-executable "chicken"))
 
 ;; --- IRC --- ;;
 
@@ -251,9 +264,19 @@
 (after! elfeed-goodies
   (setq elfeed-goodies/feed-source-column-width 20))
 
+(defadvice! colin/elfeed--echo-complete ()
+  "Hey actually tell me when the sync is complete!"
+  :after #'elfeed-update
+  (message "Elfeed update complete."))
+
 ;; --- MISC. --- ;;
 
-(set-frame-parameter nil 'alpha-background 80)
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+
+(set-frame-parameter nil 'alpha-background 85)
+
+(add-to-list '+lookup-provider-url-alist
+             (list "DuckDuckGo (NoJS)" "https://html.duckduckgo.com/html?q=%s"))
 
 (add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . pkgbuild-mode))
 

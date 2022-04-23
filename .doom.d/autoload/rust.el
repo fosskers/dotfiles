@@ -34,8 +34,8 @@ file."
               (make-files (directory-files-recursively project-root "^Makefile.toml$" nil #'colin/descend-into-dir nil))
               (dirs (mapcar (lambda (file) (file-name-directory file)) make-files)))
     (dolist (dir dirs)
-      (colin/in-terminal (format "cd %s; cargo make build; exit" dir)))
-    (colin/seed-build-scss project-root)))
+      (colin/in-terminal (format "cd %s; cargo make build; exit" dir)))))
+    ;; (colin/seed-build-scss project-root)))
 
 ;;;###autoload
 (defun colin/seed-watch ()

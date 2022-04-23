@@ -60,7 +60,12 @@
     ("Get up.")
     ("Pupil: Where do we go when we die?"
      "Master: How badly do you want to know?")
-    ("本物の美術家は出荷する"))
+    ("本物の美術家は出荷する")
+    ("And you have your choices"
+     "And these are what make man great"
+     "His ladder to the stars."
+     "-- GQ - Timshel"))
+
   "Messages to appear on the splash screen.")
 
 (defun colin/dashboard-center (str)

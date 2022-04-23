@@ -67,6 +67,23 @@ colin/org-table-get-column :: String -> Table -> [String]"
             (-drop 2 table))))
 
 ;;;###autoload
+(defun colin/org-table-get-column-and-name (column table)
+  "Fetch a COLUMN from a TABLE.
+Similar to `colin/org-table-get-column' but also returns the name of the row.
+
+colin/org-table-get-column-and-name :: String -> Table -> [(String, String)]"
+  (arr->> (colin/org-table-get-column column table)
+          (cl-mapcar #'cons (colin/org-table-row-names table))))
+
+;;;###autoload
+(defun colin/org-table-row-names (table)
+  "Fetch the column of row labels from a TABLE.
+
+colin/org-table-row-names :: Table -> [String]"
+  (arr->> (-drop 2 table)
+          (mapcar #'car)))
+
+;;;###autoload
 (defun colin/org-table-get-rows (rows table)
   "Fetch the given ROWS from a TABLE.
 
@@ -96,6 +113,18 @@ assumed to be the `'hline' symbol.
 colin/org-table-to-lisp :: String -> Table"
   (colin/org-table-goto-named table-name)
   (org-table-to-lisp))
+
+;;;###autoload
+(defun colin/org-table-named-cell (table-name column row)
+  "Retrieve the value of a cell for a specifically named COLUMN and
+ROW from a table named by TABLE-NAME.
+
+colin/org-table-named-cell :: String -> String -> String -> String"
+  (save-excursion
+    (arr-<>> (colin/org-table-to-lisp table-name)
+             (colin/org-table-get-rows (list row))
+             (colin/org-table-get-column column)
+             (car))))
 
 ;;;###autoload
 (defun colin/org-can-i-go-home-yet ()

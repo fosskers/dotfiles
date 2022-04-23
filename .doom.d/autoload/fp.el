@@ -15,3 +15,4 @@ If there is an odd number of elements, the last item is dropped."
   (pcase items
     ((pred (lambda (xs) (not (cdr xs)))) nil)
     ((seq a b &rest xs) (cons (cons a b) (colin/pairs xs)))))
+

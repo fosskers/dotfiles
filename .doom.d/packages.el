@@ -70,6 +70,10 @@
 
 (package! pkgbuild-mode)
 
+;; --- THEMES --- ;;
+(package! tron-legacy-theme
+  :recipe (:host github :repo "ianyepan/tron-legacy-emacs-theme"))
+
 ;; --- UNDER DEVELOPMENT --- ;;
 
 (package! streak
@@ -81,13 +85,22 @@
            :files ("org-table-color.el")))
 
 (package! arr
-  :recipe (:host github :repo "jeetelongname/el-arrows"))
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/el-arrows"
+           :files ("arr.el")))
+  ;; :recipe (:host github :repo "jeetelongname/el-arrows"))
+
+(package! orgtbl-join
+  :recipe (:host github :repo "tbanel/orgtbljoin"))
 
 ;; --- BUGS --- ;;
 
 (package! info-look
   :recipe (:local-repo "/home/colin/code/emacs-lisp/info-look"
            :files ("info-look.el")))
+
+(unpin! racket-mode)
+(unpin! lsp-mode)
+(unpin! parinfer-rust-mode)
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
