@@ -3,8 +3,8 @@
     "position": "top",
     "height": 24,
     "modules-left": ["sway/workspaces"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/germany", "custom/japan"],
+    "modules-center": [],
+    "modules-right": ["tray", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-click": true,

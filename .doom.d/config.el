@@ -273,7 +273,7 @@
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-(set-frame-parameter nil 'alpha-background 85)
+(set-frame-parameter nil 'alpha-background 80)
 
 (add-to-list '+lookup-provider-url-alist
              (list "DuckDuckGo (NoJS)" "https://html.duckduckgo.com/html?q=%s"))

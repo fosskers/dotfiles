@@ -1,6 +1,4 @@
 * {
-  border: none;
-  border-radius: 0;
   font-family: "Ubuntu Nerd Font";
   font-size: 13px;
   min-height: 0;
@@ -9,29 +7,19 @@
 window#waybar {
   background: transparent;
   color: white;
+  border: 1px solid #8fd4ff;
+  border-radius: 10px;
+  margin-left: 100px;
 }
 
 #window {
   font-family: "Ubuntu";
-  margin-top: 5px;
-}
-
-/*
-#workspaces {
-    padding: 0 5px;
-}
-*/
-
-#workspaces button {
-  padding: 0 5px;
-  background: transparent;
-  color: white;
-  border-top: 2px solid transparent;
 }
 
 #workspaces button.focused {
   color: white;
-  border-top: 2px solid white;
+  border: 1px solid #8fd4ff;
+  border-radius: 10px;
 }
 
 #tray,
@@ -47,22 +35,24 @@ window#waybar {
   padding: 0 5px;
   margin-right: 5px;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #temperature.critical {
-  color: red;
+  color: #b62d66;
 }
 
 #battery icon {
-  color: red;
+  color: #b62d66;
 }
 
 #battery.charging {
+  border-bottom: 1px dotted #8fd4ff;
 }
 
 @keyframes blink {
   to {
-    background-color: #ffffff;
+    background-color: #8fd4ff;
     color: black;
   }
 }
@@ -70,12 +60,23 @@ window#waybar {
 #battery.warning:not(.charging) {
   color: white;
   animation-name: blink;
-  animation-duration: 0.5s;
+  animation-duration: 2s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  border-radius: 5px;
+}
+
+#battery.warning:not(.charging) {
+  color: white;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  border-radius: 5px;
 }
 
 #network.disconnected {
-  background: #f53c3c;
+  color: #b62d66;
 }

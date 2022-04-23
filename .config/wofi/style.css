@@ -1,53 +1,54 @@
 window {
-    margin: 5px;
-    border: 2px solid white;
-    background-color: rgba(44,62,80,0.8);
-    /* background: transparent; */
-    /* background: transparent; */
+  margin: 5px;
+  border: 1px solid #8fd4ff;
+  border-radius: 10px;
+  background-color: rgba(44, 62, 80, 0.8);
+  /* background: transparent; */
+  /* background: transparent; */
 }
 
 #input {
-    margin: 5px;
-    background: transparent;
-    color: white;
-    /* border: 2px solid blue; */
-    /* background-color: blue; */
+  margin: 5px;
+  background: transparent;
+  color: white;
+  /* border: 2px solid blue; */
+  /* background-color: blue; */
 }
 
 #inner-box {
-    margin: 5px;
-    /* border: 2px solid yellow; */
-    /* background-color: yellow; */
+  margin: 5px;
+  /* border: 2px solid yellow; */
+  /* background-color: yellow; */
 }
 
 #outer-box {
-    margin: 5px;
-    /* border: 2px solid green; */
-    border: 2px transparent;
-    /* background-color: green; */
+  margin: 5px;
+  /* border: 2px solid green; */
+  border: 2px transparent;
+  /* background-color: green; */
 }
 
 #scroll {
-    margin: 5px;
-    /* border: 2px solid orange; */
-    /* background-color: orange; */
+  margin: 5px;
+  /* border: 2px solid orange; */
+  /* background-color: orange; */
 }
 
 #text {
-    margin: 5px;
-    color: white;
-    /* border: 2px solid cyan; */
-    /* background-color: cyan; */
+  margin: 5px;
+  color: white;
+  /* border: 2px solid cyan; */
+  /* background-color: cyan; */
 }
 
 #entry:selected {
-    background-color: rgba(0,0,0,0);
-    /* text-decoration: underline; */
-    /* text-decoration-color: white; */
+  background-color: rgba(0, 0, 0, 0);
+  /* text-decoration: underline; */
+  /* text-decoration-color: white; */
 }
 
 #text:selected {
-     /* background-color: red; */
-    text-decoration: underline;
-    text-decoration-color: white;
+  /* background-color: red; */
+  text-decoration: underline;
+  text-decoration-color: white;
 }

@@ -27,7 +27,8 @@ set $menu wofi --show=drun --lines=5 --prompt=""
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/colin/Pictures/backgrounds/near-black.png fill
 # output * bg /home/colin/Pictures/backgrounds/sculp-yourself.jpg fill
 
 #
@@ -90,7 +91,7 @@ output HDMI-A-2 mode 1920x1080 position 1280,0
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+f exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+f exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -227,12 +228,14 @@ input * {
 # Personal settings
 focus_follows_mouse no
 gaps inner 10
-default_border pixel 3
+client.focused #8fd4ff #8fd4ff #8fd4ff #8fd4ff #8fd4ff
+default_border pixel 1
 exec_always fcitx5 -d --replace
-exec_always setwall random ~/Pictures/backgrounds/ -c sway
+# exec_always setwall random ~/Pictures/backgrounds/ -c sway
 
 bar {
     swaybar_command waybar
 }
+
 
 include /etc/sway/config.d/*
