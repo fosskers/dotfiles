@@ -1,0 +1,8 @@
+edge=bottom
+
+[tron]
+border-bottom=8FD4FF
+border-bottom-size=1
+border=8FD4FF
+button-border-size=1
+button-dismiss-gap=0

@@ -4,7 +4,7 @@
     "height": 24,
     "modules-left": ["sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["tray", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
+    "modules-right": ["network", "temperature", "cpu", "memory", "battery", "clock", "custom/japan"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-click": true,
