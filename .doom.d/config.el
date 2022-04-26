@@ -168,11 +168,12 @@
 
 ;; (setq +format-on-save-enabled-modes '(not c-mode))
 
-(after! haskell-mode
-  (setq haskell-stylish-on-save t))
+;; (after! haskell-mode
+;;   (setq haskell-stylish-on-save t))
 
 (after! lsp-haskell
-  (setq lsp-haskell-formatting-provider "stylish-haskell"))
+  (setq lsp-haskell-formatting-provider "fourmolu"))
+        ;; lsp-haskell-plugin-import-lens-code-lens-on nil))
                                         ;
                                         ; lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
 (after! lsp-rust

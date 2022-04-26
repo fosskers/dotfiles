@@ -64,7 +64,13 @@
     ("And you have your choices"
      "And these are what make man great"
      "His ladder to the stars."
-     "-- GQ - Timshel"))
+     "-- GQ - Timshel")
+    ("I now see bone of my bone, flesh of my flesh, my self before me;"
+     "Woman is her name, of man extracted;"
+     "for this cause he shall forgoe Father and Mother,"
+     "and to his wife adhere;"
+     "and they shall be one flesh, one heart, one soule."
+     "-- Adam to God, after seeing Eve"))
 
   "Messages to appear on the splash screen.")
 
