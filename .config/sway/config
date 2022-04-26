@@ -91,7 +91,7 @@ output HDMI-A-2 mode 1920x1080 position 1280,0
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+f exec swaynag -t tron -m 'Exit the Grid?' -b 'Exit the Grid' 'swaymsg exit'
+    bindsym $mod+Shift+f exec swaynag -t tron -m 'Aperture clear?' -b 'Exit the Grid' 'swaymsg exit'
 #
 # Moving around:
 #

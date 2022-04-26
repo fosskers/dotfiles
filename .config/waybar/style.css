@@ -5,7 +5,8 @@
 }
 
 window#waybar {
-  background: transparent;
+  /* background: transparent; */
+  background: black;
   color: white;
   border: 1px solid #8fd4ff;
   border-radius: 10px;
