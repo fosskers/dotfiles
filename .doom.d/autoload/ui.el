@@ -70,7 +70,8 @@
      "for this cause he shall forgoe Father and Mother,"
      "and to his wife adhere;"
      "and they shall be one flesh, one heart, one soule."
-     "-- Adam to God, after seeing Eve"))
+     "-- Adam to God, after seeing Eve")
+    ("Love whomever you may, but love coerced is not love at all."))
 
   "Messages to appear on the splash screen.")
 

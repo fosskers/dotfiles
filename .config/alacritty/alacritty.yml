@@ -182,8 +182,8 @@
 # Colors (Tomorrow Night)
 #colors:
 # Default colors
-#primary:
-#  background: '#1d1f21'
+primary:
+  background: "#282c34"
 #  foreground: '#c5c8c6'
 
 # Bright and dim foreground colors
@@ -334,7 +334,7 @@
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
 window:
-  opacity: 0.0
+  opacity: 0.85
 #selection:
 # This string contains all characters that are used as separators for
 # "semantic words" in Alacritty.

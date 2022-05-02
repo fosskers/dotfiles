@@ -26,9 +26,9 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-rouge)
-;; (setq doom-theme 'doom-one
-;;       doom-one-brighter-comments t)
-(setq doom-theme 'tron-legacy)
+(setq doom-theme 'doom-one
+      doom-one-brighter-comments t)
+;; (setq doom-theme 'doom-tron)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -102,13 +102,11 @@
 (setq org-directory "~/sync/org/"
       org-roam-directory "/home/colin/sync/org-roam"
       org-agenda-files '("/home/colin/sync/colin.org"
-                         "/home/colin/sync/org/2021.org"
                          "/home/colin/sync/org/2022.org"
                          "/home/colin/sync/org/coding.org"
                          "/home/colin/sync/org/sysadmin.org"
                          "/home/colin/contracting/upwork.org"
                          "/home/colin/contracting/caddi.org"
-                         "/home/colin/code/haskell/real-world-software-dev/course.org"
                          "/home/colin/sync/japan/japan.org"))
 
 (after! org
@@ -151,7 +149,7 @@
   (setq org-super-agenda-groups '((:name "Open Source" :file-path "coding.org")
                                   (:name "Sys Admin" :file-path "sysadmin.org")
                                   (:name "Personal" :file-path "colin.org")
-                                  (:name "Life" :file-path "2021.org" :file-path "2022.org")
+                                  (:name "Life" :file-path "2022.org")
                                   (:name "CADDi" :file-path "caddi.org")
                                   (:name "Forethink" :tag "forethink")
                                   (:name "Freelancing" :tag "admin"))))
@@ -274,7 +272,7 @@
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-(set-frame-parameter nil 'alpha-background 80)
+(set-frame-parameter nil 'alpha-background 85)
 
 (add-to-list '+lookup-provider-url-alist
              (list "DuckDuckGo (NoJS)" "https://html.duckduckgo.com/html?q=%s"))

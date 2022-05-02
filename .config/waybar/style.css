@@ -6,11 +6,11 @@
 
 window#waybar {
   /* background: transparent; */
-  background: black;
+  /* background: black; */
+  background: rgba(40, 44, 52, 0.85);
   color: white;
   border: 1px solid #8fd4ff;
   border-radius: 10px;
-  margin-left: 100px;
 }
 
 #window {

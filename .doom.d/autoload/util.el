@@ -41,4 +41,5 @@ a -> Maybe Number"
 (defun colin/mu4e-delete-lock ()
   "Delete a stuck xapian lock."
   (interactive)
-  (delete-file "/home/colin/.cache/mu/xapian/flintlock"))
+  (delete-file "/home/colin/.cache/mu/xapian/flintlock")
+  (message "Xapian lock deleted."))
