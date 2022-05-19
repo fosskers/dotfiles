@@ -23,11 +23,25 @@ Does nothing if there is only one frame open."
 ;;;###autoload
 (defun colin/lisp-object-to-number (item)
   "Try to yield a number from ITEM, depending on its type.
+Also knows how to parse times, which it converts into a float.
 
 a -> Maybe Number"
   (cond ((numberp item) item)
-        ((stringp item) (let ((str (ignore-errors (read (string-trim item)))))
-                          (when (numberp str) str)))))
+        ((stringp item) (let ((trimmed (string-trim item)))
+                          (or (let ((str (ignore-errors (read trimmed))))
+                                (when (numberp str) str))
+                              (colin/parse-time trimmed))))))
+
+;;;###autoload
+(defun colin/parse-time (time)
+  "Try to parse a time string into a float.
+The ones-digit represents hours.
+
+String -> Maybe Float"
+  (when-let* ((parsed (parse-time-string time))
+              (hours (nth 2 parsed))
+              (minutes (nth 1 parsed)))
+    (+ hours (/ minutes 60.0))))
 
 ;;;###autoload
 (defun colin/filter-non-nil (items)

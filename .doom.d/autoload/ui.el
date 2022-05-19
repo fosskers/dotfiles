@@ -71,7 +71,12 @@
      "and to his wife adhere;"
      "and they shall be one flesh, one heart, one soule."
      "-- Adam to God, after seeing Eve")
-    ("Love whomever you may, but love coerced is not love at all."))
+    ("Love whomever you may, but love coerced is not love at all.")
+    ("The real human currencies:"
+     "Time"
+     "Health"
+     "Connections"
+     "Space"))
 
   "Messages to appear on the splash screen.")
 
