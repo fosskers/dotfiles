@@ -57,3 +57,7 @@ String -> Maybe Float"
   (interactive)
   (delete-file "/home/colin/.cache/mu/xapian/flintlock")
   (message "Xapian lock deleted."))
+
+;;;###autoload
+(defun colin/pounds-to-kilos (pounds)
+  (* pounds 0.454))

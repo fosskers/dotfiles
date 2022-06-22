@@ -71,6 +71,7 @@
 (package! pkgbuild-mode)
 
 ;; --- THEMES --- ;;
+
 (package! tron-legacy-theme
   :recipe (:host github :repo "ianyepan/tron-legacy-emacs-theme"))
 
@@ -92,13 +93,18 @@
 (package! orgtbl-join
   :recipe (:host github :repo "tbanel/orgtbljoin"))
 
+(package! ob-dart
+  :recipe (:local-repo "/home/colin/code/emacs-lisp/ob-dart"
+           :files ("ob-dart.el")))
+
 ;; --- BUGS --- ;;
 
 (package! info-look
   :recipe (:local-repo "/home/colin/code/emacs-lisp/info-look"
            :files ("info-look.el")))
 
-(unpin! racket-mode)
+;; (unpin! racket-mode)
+;; (unpin! org-roam)
 (unpin! lsp-mode)
 (unpin! parinfer-rust-mode)
 

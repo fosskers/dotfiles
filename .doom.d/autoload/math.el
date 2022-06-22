@@ -19,11 +19,11 @@
   (/ (apply #'+ items)
      (float (length items))))
 
-;;;###autoload
-(defun colin/mean-lenient (items)
-  "Find the average value of some numerical ITEMS.
-Unlike `colin/mean', will not crash if some elements are nil."
-  (colin/mean (colin/filter-non-nil items)))
+;; ;;;###autoload
+;; (defun colin/mean-lenient (items)
+;;   "Find the average value of some numerical ITEMS.
+;; Unlike `colin/mean', will not crash if some elements are nil."
+;;   (colin/mean (colin/filter-non-nil items)))
 
 ;;;###autoload
 (defun colin/median (items)
@@ -53,15 +53,15 @@ instead of crashing."
     (/ numer denom)))
 
 ;;;###autoload
-(defun colin/correlation-matrix (table-name)
-  "Given a TABLE-NAME, produce a correlation matrix of its data."
+(defun colin/correlation-matrix (table)
+  "Given a TABLE, produce a correlation matrix of its data."
   (save-excursion
-    (when-let* ((table (colin/org-table-to-lisp table-name))
-                (col-pairs (colin/org-table-columns table))
+    (when-let* ((col-pairs (colin/org-table-columns table))
                 (col-ixs (mapcar #'car col-pairs))
                 (col-names (mapcar #'cdr col-pairs))
                 (indices (number-sequence 0 (1- (length col-names))))
                 (rows (thread-last (-drop 2 table)
+                                   (seq-filter #'listp)
                                    (mapcar (lambda (row)
                                              (colin/filter-non-nil (cl-mapcar (lambda (i a) (when (seq-contains-p col-ixs i) a))
                                                                               (number-sequence 0 (1- (length row)))

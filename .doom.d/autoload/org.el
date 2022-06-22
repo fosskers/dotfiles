@@ -63,8 +63,9 @@ colin/org-table-columns :: Table -> [(Int, String)]"
 colin/org-table-get-column :: String -> Table -> [String]"
   (when-let* ((pairs (colin/org-table-columns table))
               (index (car (-find (lambda (pair) (string-equal column (cdr pair))) pairs))))
-    (mapcar (lambda (row) (nth index row))
-            (-drop 2 table))))
+    (thread-last (-drop 2 table)
+                 (seq-filter #'listp)
+                 (mapcar (lambda (row) (nth index row))))))
 
 ;;;###autoload
 (defun colin/org-table-get-column-and-name (column table)

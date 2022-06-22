@@ -170,7 +170,7 @@
 ;;   (setq haskell-stylish-on-save t))
 
 (after! lsp-haskell
-  (setq lsp-haskell-formatting-provider "fourmolu"))
+  (setq lsp-haskell-formatting-provider "stylish-haskell"))
         ;; lsp-haskell-plugin-import-lens-code-lens-on nil))
                                         ;
                                         ; lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]
@@ -269,6 +269,11 @@
   (message "Elfeed update complete."))
 
 ;; --- MISC. --- ;;
+
+(add-to-list 'load-path "/home/colin/code/rust/colin-elisp")
+(require 'colin)
+;; (add-to-list 'load-path "/home/colin/code/rust/racing")
+;; (require 'racing)
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 

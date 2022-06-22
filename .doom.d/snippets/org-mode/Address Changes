@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: Address Changes
+# uuid: 70629307-3c2b-45c0-8a62-f30c929ea43b
+# condition: t
+# --
+
++ Government Agencies
+  - [ ] ICBC
+  - [ ] CRA
+  - [ ] RCMP (PAL)
++ Financial Institutions
+  - [ ] Blueshore
+  - [ ] Tangerine
+  - [ ] KOHO
+  - [ ] Cambrian Credit Union
+  - [ ] Qtrade
+  - [ ] Paypal
++ Services
+  - [ ] Bell
+  - [ ] Amazon
