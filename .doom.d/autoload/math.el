@@ -37,38 +37,31 @@
           (t (nth med sorted)))))
 
 ;;;###autoload
-(defun colin/correlation (table x-pos y-pos)
-  "Find the correlation of two variables (columns) in a TABLE.
-Accounts for missing data by ignoring pairs where one or both is nil,
-instead of crashing."
-  (let* ((x-vals (mapcar (lambda (row) (colin/lisp-object-to-number (nth x-pos row))) table))
-         (y-vals (mapcar (lambda (row) (colin/lisp-object-to-number (nth y-pos row))) table))
-         (x-mean (colin/mean-lenient x-vals))
-         (y-mean (colin/mean-lenient y-vals))
-         (x-diff (mapcar (lambda (x) (when x (- x x-mean))) x-vals))
-         (y-diff (mapcar (lambda (y) (when y (- y y-mean))) y-vals))
-         (numer  (apply #'+ (cl-mapcar (lambda (x y) (* (or x 0) (or y 0))) x-diff y-diff)))
-         (denom  (sqrt (* (apply #'+ (mapcar (lambda (x) (math-pow (or x 0) 2)) x-diff))
-                          (apply #'+ (mapcar (lambda (y) (math-pow (or y 0) 2)) y-diff))))))
-    (/ numer denom)))
-
-;;;###autoload
 (defun colin/correlation-matrix (table)
   "Given a TABLE, produce a correlation matrix of its data."
-  (save-excursion
-    (when-let* ((col-pairs (colin/org-table-columns table))
-                (col-ixs (mapcar #'car col-pairs))
-                (col-names (mapcar #'cdr col-pairs))
-                (indices (number-sequence 0 (1- (length col-names))))
-                (rows (thread-last (-drop 2 table)
-                                   (seq-filter #'listp)
-                                   (mapcar (lambda (row)
-                                             (colin/filter-non-nil (cl-mapcar (lambda (i a) (when (seq-contains-p col-ixs i) a))
-                                                                              (number-sequence 0 (1- (length row)))
-                                                                              row)))))))
-      (cons (cons "" col-names)
-            (cons 'hline
-                  (mapcar (lambda (y) (cons (nth y col-names)
-                                            (mapcar (lambda (x) (format "%.2f" (colin/correlation rows x y)))
-                                                    indices)))
-                          indices))))))
+  (when-let* ((col-pairs (colin/org-table-columns table))
+              (col-ixs (mapcar #'car col-pairs))
+              (col-names (mapcar #'cdr col-pairs))
+              (clean-table (seq-filter #'listp (-drop 2 table)))
+              (col-diffs (mapcar (fn! (colin/correlation-diffs clean-table %)) col-ixs))
+              (indices (number-sequence 0 (1- (length col-diffs)))))
+    (cons (cons "" col-names)
+          (cons 'hline
+                (mapcar (lambda (y) (cons (nth y col-names)
+                                         (mapcar (lambda (x) (format "%.2f" (colin/correlation-fast (nth x col-diffs)
+                                                                                               (nth y col-diffs))))
+                                                 indices)))
+                        indices)))))
+
+(defun colin/correlation-diffs (table ix)
+  "Given a TABLE and a column IX, find all the correlation diff values."
+  (let* ((vals (mapcar (lambda (row) (colin/lisp-object-to-number (nth ix row))) table))
+         (mean (colin/mean-lenient vals)))
+    (mapcar (lambda (n) (when n (- n mean))) vals)))
+
+(defun colin/correlation-fast (x-diff y-diff)
+  "The final step of the correlation calculation between two measurement categories."
+  (let* ((numer (apply #'+ (cl-mapcar (lambda (x y) (* (or x 0) (or y 0))) x-diff y-diff)))
+         (denom (sqrt (* (apply #'+ (mapcar (lambda (x) (math-pow (or x 0) 2)) x-diff))
+                         (apply #'+ (mapcar (lambda (y) (math-pow (or y 0) 2)) y-diff))))))
+    (/ numer denom)))
