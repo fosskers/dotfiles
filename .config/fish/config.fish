@@ -1,14 +1,16 @@
-set -x PATH /bin /usr/local/bin /usr/bin /usr/sbin /sbin '/home/colin/.local/bin' /usr/bin/core_perl /home/colin/code/go/bin '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin' '/home/colin/.emacs.d/bin' '/home/colin/.ghcup/bin' '/home/colin/.chicken/bin'
+set -x PATH /bin /usr/local/bin /usr/bin /usr/sbin /sbin '/home/colin/.local/bin' /usr/bin/core_perl /home/colin/code/go/bin '/home/colin/.cargo/bin/' '/home/colin/.local/npm/node_modules/.bin' '/home/colin/.deno/bin' '/home/colin/.emacs.d/bin' '/home/colin/.ghcup/bin' '/home/colin/.chicken/bin' /home/colin/code/flutter/flutter/bin '/home/colin/.config/guix/current/bin'
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
 set -x EDITOR emacs
 set -x DOOMDIR '/home/colin/dotfiles/.doom.d'
+set -x CHROME_EXECUTABLE google-chrome-stable
 
 # GTK
 set -x GTK_THEME "Adwaita:dark"
 
 # Java
 set -x JAVA_HOME /usr/lib/jvm/default
+set -x _JAVA_AWT_WM_NONREPARENTING 1
 # set -x _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # Wayland
