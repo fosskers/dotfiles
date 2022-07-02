@@ -14,6 +14,9 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+;; Apparently more performant for JSON-based communication with LSP servers.
+(setenv "LSP_USE_PLISTS" "1")
+
 (doom! :input
        ;;chinese
        ;;japanese
@@ -123,7 +126,7 @@
        ;;csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        (dart +lsp +flutter)   ; paint ui and not much else
-       ;;elixir            ; erlang done right
+       (elixir +lsp +tree-sitter)            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age

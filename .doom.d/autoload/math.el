@@ -48,9 +48,9 @@
     (cons (cons "" col-names)
           (cons 'hline
                 (mapcar (lambda (y) (cons (nth y col-names)
-                                         (mapcar (lambda (x) (format "%.2f" (colin/correlation-fast (nth x col-diffs)
-                                                                                               (nth y col-diffs))))
-                                                 indices)))
+                                          (mapcar (lambda (x) (format "%.2f" (colin/correlation-fast (nth x col-diffs)
+                                                                                                     (nth y col-diffs))))
+                                                  indices)))
                         indices)))))
 
 (defun colin/correlation-diffs (table ix)
