@@ -2,7 +2,6 @@ set -x PATH /bin /usr/local/bin /usr/bin /usr/sbin /sbin '/home/colin/.local/bin
 
 set -x PKG_CONFIG_ALLOW_CROSS 1
 set -x EDITOR emacs
-set -x DOOMDIR '/home/colin/dotfiles/.doom.d'
 set -x CHROME_EXECUTABLE google-chrome-stable
 
 # GTK
