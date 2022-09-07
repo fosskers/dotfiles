@@ -16,7 +16,7 @@ set $up e
 set $right o
 
 # Your preferred terminal emulator
-set $term alacritty
+set $term foot
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -92,6 +92,8 @@ output HDMI-A-2 mode 1920x1080 position 1280,0
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+f exec swaynag -t tron -m 'Aperture clear?' -b 'Exit the Grid' 'swaymsg exit'
+
+    bindsym $mod+Shift+l exec swaylock
 #
 # Moving around:
 #
