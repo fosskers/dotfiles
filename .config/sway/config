@@ -37,7 +37,7 @@ set $menu wofi --show=drun --lines=5 --prompt=""
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-# output eDP-1 mode 2560x1440 position 0,0 scale 2
+output eDP-1 mode 2560x1440 position 0,0 scale 1.5
 # output HDMI-A-2 mode 1920x1080 position 1280,0
 
 ### Idle configuration
@@ -236,8 +236,9 @@ exec_always fcitx5 -d --replace
 exec_always setwall random ~/Pictures/backgrounds/ -c sway
 
 bar {
-    swaybar_command waybar
+    position top
+    status_command i3status
+    # swaybar_command waybar
 }
-
 
 include /etc/sway/config.d/*
