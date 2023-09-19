@@ -1,0 +1,38 @@
+general {
+  colors = true
+  interval = 5
+}
+
+order += "wireless _first_"
+order += "battery all"
+order += "load"
+order += "tztime vancouver"
+order += "tztime germany"
+order += "tztime local"
+
+wireless _first_ {
+  format_up = "W: %essid"
+  format_down = "W: down"
+}
+
+battery all {
+  format = "%status %percentage %remaining"
+}
+
+load {
+  format = "%1min"
+}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M %Z"
+}
+
+tztime vancouver {
+        format = "%H:%M %Z"
+        timezone = "America/Vancouver"
+}
+
+tztime germany {
+        format = "%H:%M %Z"
+        timezone = "Europe/Berlin"
+}

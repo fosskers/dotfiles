@@ -234,6 +234,7 @@ client.focused #8fd4ff #8fd4ff #8fd4ff #8fd4ff #8fd4ff
 default_border pixel 1
 exec_always fcitx5 -d --replace
 exec_always setwall random ~/Pictures/backgrounds/ -c sway
+font pango:SourceCodePro Regular 8
 
 bar {
     position top

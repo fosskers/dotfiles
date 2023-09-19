@@ -25,6 +25,7 @@
          "git"
          "git:send-email"
          "htop"
+         "i3status"
          "ncdu"
          "ripgrep"
          "yt-dlp"
