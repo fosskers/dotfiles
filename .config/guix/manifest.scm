@@ -8,28 +8,36 @@
    #:name "glibc-us-utf8-locales"))
 
 (concatenate-manifests
- (list (specifications->manifest
-        (list
-         ;; --- Applications --- ;;
-         "calibre"
-         "handbrake"
-         "krita"
-         "libreoffice"
-         "sway"
-         "transmission:gui"
-         ;; --- Programming --- ;;
-         "clojure"
-         "sbcl"
-         ;; --- System Tools --- ;;
-         "foot"
-         "git"
-         "git:send-email"
-         "htop"
-         "i3status"
-         "ncdu"
-         "ripgrep"
-         "yt-dlp"
-         ;; --- Wayland --- ;;
-         ;; Pinned to 5.x for Calibre
-         "qtwayland@5"))
-       (packages->manifest (list colin-locales))))
+ (list
+  (specifications->manifest
+   (list
+    ;; --- Applications --- ;;
+    ;; "krita"
+    "libreoffice"
+    "sway"
+    ;; --- Programming --- ;;
+    "clojure"
+    "sbcl"
+    ;; --- System Tools --- ;;
+    "foot"
+    "git"
+    "git:send-email"
+    "grimshot"
+    "htop"
+    "i3status"
+    "mpv"
+    "ncdu"
+    "ripgrep"
+    "swaybg"
+    "yt-dlp"
+    "zsh"
+    "zsh-autosuggestions"
+    "zsh-completions"
+    "zsh-syntax-highlighting"
+    ;; --- Wayland --- ;;
+    ;; Pinned to 5.x for Calibre
+    "qtwayland@5"
+    ;; --- Misc --- ;;
+    ;; For git to work.
+    "nss-certs"))
+  (packages->manifest (list colin-locales))))
