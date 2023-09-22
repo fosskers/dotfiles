@@ -12,7 +12,7 @@
   (specifications->manifest
    (list
     ;; --- Applications --- ;;
-    ;; "krita"
+    ;; "krita"  ; pulls a lot of KDE
     "libreoffice"
     "sway"
     ;; --- Programming --- ;;

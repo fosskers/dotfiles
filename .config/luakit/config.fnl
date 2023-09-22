@@ -21,7 +21,9 @@
 
 ;; --- Follow Mode --- ;;
 
-;; (tset select "label_maker" (fn [] (interleave "arst" "neio")))
+(fn select.label_maker [s] (s.interleave "arst" "neio"))
+
+;; --- Appearance --- ;;
 
 ;; --- ;;
 

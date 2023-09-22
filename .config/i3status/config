@@ -5,9 +5,10 @@ general {
 
 order += "wireless _first_"
 order += "battery all"
-order += "load"
-order += "tztime vancouver"
-order += "tztime germany"
+order += "cpu_usage"
+# order += "load"
+# order += "tztime vancouver"
+# order += "tztime germany"
 order += "tztime local"
 
 wireless _first_ {
@@ -19,18 +20,22 @@ battery all {
   format = "%status %percentage %remaining"
 }
 
-load {
-  format = "%1min"
+cpu_usage {
+  format = "CPU %usage"
 }
 
-tztime local {
-  format = "%Y-%m-%d %H:%M %Z"
-}
+# load {
+#   format = "%1min"
+# }
 
-tztime vancouver {
-        format = "%H:%M %Z"
-        timezone = "America/Vancouver"
-}
+# tztime local {
+#   format = "%Y-%m-%d %H:%M %Z"
+# }
+
+# tztime vancouver {
+#         format = "%H:%M %Z"
+#         timezone = "America/Vancouver"
+# }
 
 tztime germany {
         format = "%H:%M %Z"
