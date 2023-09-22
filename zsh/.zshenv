@@ -4,6 +4,7 @@ export PATH
 
 export EDITOR=emacs
 export GTK_THEME="Adwaita:dark"
+export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 export JAVA_HOME=/usr/lib/jvm/default
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'

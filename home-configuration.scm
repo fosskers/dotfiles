@@ -49,9 +49,9 @@
 
  (services
   (list
-   (service home-zsh-service-type
-            (home-zsh-configuration
-             ;; (aliases '(("ls" . "ls --color=auto")))
-             (zprofile (list (local-file "/home/colin/dotfiles/zsh/.zprofile" "zprofile")))
-             (zshenv   (list (local-file "/home/colin/dotfiles/zsh/.zshenv" "zshenv")))
-             (zshrc    (list (local-file "/home/colin/dotfiles/zsh/.zshrc" "zshrc"))))))))
+   (service
+    home-zsh-service-type
+    (home-zsh-configuration
+     (zprofile (list (local-file "/home/colin/dotfiles/zsh/.zprofile" "zprofile")))
+     (zshenv   (list (local-file "/home/colin/dotfiles/zsh/.zshenv" "zshenv")))
+     (zshrc    (list (local-file "/home/colin/dotfiles/zsh/.zshrc" "zshrc"))))))))
