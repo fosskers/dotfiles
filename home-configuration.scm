@@ -64,6 +64,6 @@
         ("LANG" . "en_US.UTF-8")
         ("LC_ALL" . "en_US.UTF-8")
         ("LEDGER_FILE" . "/home/colin/sync/life/finances/finances.journal")
-        ("MOZ_ENABLE_WAYLAND" . #t)
+        ("MOZ_ENABLE_WAYLAND" . "1")
         ("SDL_VIDEODRIVER" . "wayland")
-        ("_JAVA_AWT_WM_NONREPARENTING" . #t))))))))
+        ("_JAVA_AWT_WM_NONREPARENTING" . "1"))))))))
