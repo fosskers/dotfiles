@@ -41,6 +41,7 @@
           "zsh-completions"
           "zsh-syntax-highlighting"
           ;; --- Wayland --- ;;
+          "mako"
           ;; Pinned to 5.x for Calibre
           "qtwayland@5"
           ;; --- Misc --- ;;
@@ -54,4 +55,15 @@
     (home-zsh-configuration
      (zprofile (list (local-file "/home/colin/dotfiles/zsh/.zprofile" "zprofile")))
      (zshenv   (list (local-file "/home/colin/dotfiles/zsh/.zshenv" "zshenv")))
-     (zshrc    (list (local-file "/home/colin/dotfiles/zsh/.zshrc" "zshrc"))))))))
+     (zshrc    (list (local-file "/home/colin/dotfiles/zsh/.zshrc" "zshrc")))
+     (environment-variables
+      '(("EDITOR" . "emacs")
+        ("GTK_THEME" . "Adwaita:dark")
+        ("GUIX_LOCPATH" . "$HOME/.guix-profile/lib/locale/")
+        ("JAVA_HOME" . "/usr/lib/jvm/default")
+        ("LANG" . "en_US.UTF-8")
+        ("LC_ALL" . "en_US.UTF-8")
+        ("LEDGER_FILE" . "/home/colin/sync/life/finances/finances.journal")
+        ("MOZ_ENABLE_WAYLAND" . #t)
+        ("SDL_VIDEODRIVER" . "wayland")
+        ("_JAVA_AWT_WM_NONREPARENTING" . #t))))))))
