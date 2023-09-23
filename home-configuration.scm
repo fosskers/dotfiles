@@ -13,41 +13,42 @@
    #:locales '("en_US")
    #:name "glibc-us-utf8-locales"))
 
+(define my-packages
+  '(;; --- Applications --- ;;
+    ;; "krita"  ; pulls a lot of KDE
+    "libreoffice"
+    "sway"
+    ;; --- Programming --- ;;
+    "clojure"
+    "sbcl"
+    ;; --- System Tools --- ;;
+    "foot"
+    "git"
+    "git:send-email"
+    "grimshot"
+    "htop"
+    "i3status"
+    "mpv"
+    "ncdu"
+    "ripgrep"
+    "swaybg"
+    "yt-dlp"
+    "zsh"
+    "zsh-autosuggestions"
+    "zsh-completions"
+    "zsh-syntax-highlighting"
+    ;; --- Wayland --- ;;
+    "mako"
+    ;; Pinned to 5.x for Calibre
+    "qtwayland@5"
+    ;; --- Misc --- ;;
+    ;; For git to work.
+    "nss-certs"))
+
 (home-environment
  (packages
   (cons colin-locales
-        (specifications->packages
-         (list
-          ;; --- Applications --- ;;
-          ;; "krita"  ; pulls a lot of KDE
-          "libreoffice"
-          "sway"
-          ;; --- Programming --- ;;
-          "clojure"
-          "sbcl"
-          ;; --- System Tools --- ;;
-          "foot"
-          "git"
-          "git:send-email"
-          "grimshot"
-          "htop"
-          "i3status"
-          "mpv"
-          "ncdu"
-          "ripgrep"
-          "swaybg"
-          "yt-dlp"
-          "zsh"
-          "zsh-autosuggestions"
-          "zsh-completions"
-          "zsh-syntax-highlighting"
-          ;; --- Wayland --- ;;
-          "mako"
-          ;; Pinned to 5.x for Calibre
-          "qtwayland@5"
-          ;; --- Misc --- ;;
-          ;; For git to work.
-          "nss-certs"))))
+        (specifications->packages my-packages)))
 
  (services
   (list
@@ -68,6 +69,8 @@
         ("MOZ_ENABLE_WAYLAND" . "1")
         ("SDL_VIDEODRIVER" . "wayland")
         ("_JAVA_AWT_WM_NONREPARENTING" . "1")))))
-   (simple-service 'dotfiles
-                   home-xdg-configuration-files-service-type
-                   `(("sway/config" ,(local-file "/home/colin/dotfiles/sway/config")))))))
+   (simple-service
+    'dotfiles
+    home-xdg-configuration-files-service-type
+    `(("sway/config" ,(local-file "/home/colin/dotfiles/sway/config"))
+      ("git/config"  ,(local-file "/home/colin/dotfiles/git/config")))))))
