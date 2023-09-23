@@ -1,8 +1,9 @@
 (use-modules
- (gnu home services shells)
  (gnu home)
- (gnu packages base)
+ (gnu home services)
+ (gnu home services shells)
  (gnu packages)
+ (gnu packages base)
  (gnu services)
  (guix gexp))
 
@@ -66,4 +67,7 @@
         ("LEDGER_FILE" . "/home/colin/sync/life/finances/finances.journal")
         ("MOZ_ENABLE_WAYLAND" . "1")
         ("SDL_VIDEODRIVER" . "wayland")
-        ("_JAVA_AWT_WM_NONREPARENTING" . "1"))))))))
+        ("_JAVA_AWT_WM_NONREPARENTING" . "1")))))
+   (simple-service 'dotfiles
+                   home-xdg-configuration-files-service-type
+                   `(("sway/config" ,(local-file "/home/colin/dotfiles/sway/config")))))))
