@@ -72,5 +72,6 @@
    (simple-service
     'dotfiles
     home-xdg-configuration-files-service-type
-    `(("sway/config" ,(local-file "/home/colin/dotfiles/sway/config"))
-      ("git/config"  ,(local-file "/home/colin/dotfiles/git/config")))))))
+    `(("sway/config"     ,(local-file "/home/colin/dotfiles/sway/config"))
+      ("git/config"      ,(local-file "/home/colin/dotfiles/git/config"))
+      ("i3status/config" ,(local-file "/home/colin/dotfiles/i3status/config")))))))

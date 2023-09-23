@@ -28,16 +28,16 @@ cpu_usage {
 #   format = "%1min"
 # }
 
-# tztime local {
-#   format = "%Y-%m-%d %H:%M %Z"
-# }
+tztime local {
+  format = "%Y-%m-%d %H:%M %Z"
+}
 
 # tztime vancouver {
 #         format = "%H:%M %Z"
 #         timezone = "America/Vancouver"
 # }
 
-tztime germany {
-        format = "%H:%M %Z"
-        timezone = "Europe/Berlin"
-}
+# tztime germany {
+#         format = "%H:%M %Z"
+#         timezone = "Europe/Berlin"
+# }
