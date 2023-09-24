@@ -1,0 +1,16 @@
+[general]
+editor = 'emacs'
+
+[aur]
+build = '/home/colin/.cache/aura/builds'
+cache = '/home/colin/.cache/aura/cache'
+clones = '/home/colin/.cache/aura/packages'
+hashes = '/home/colin/.cache/aura/hashes'
+ignores = ["anki", "aseprite"]
+git = false
+hotedit = false
+diff = false
+
+[backups]
+snapshots = '/home/colin/.cache/aura/snapshots'
+

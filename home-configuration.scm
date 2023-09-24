@@ -13,6 +13,9 @@
    #:locales '("en_US")
    #:name "glibc-us-utf8-locales"))
 
+;; NOTE 2023-09-24 swaylock-effects cannot be used as it somehow can't
+;; communicate with the underlying system's password manager in order to
+;; actually unlock. I learned this the hard way and had to do a hard restart.
 (define my-packages
   '(;; --- Applications --- ;;
     ;; "krita"  ; pulls a lot of KDE
@@ -72,8 +75,13 @@
    (simple-service
     'dotfiles
     home-xdg-configuration-files-service-type
-    `(("sway/config"     ,(local-file "/home/colin/dotfiles/sway/config"))
+    `(("aura.toml"       ,(local-file "/home/colin/dotfiles/aura.toml"))
+      ("fcitx5/config"   ,(local-file "/home/colin/dotfiles/fcitx5/config"))
+      ("foot/foot.ini"   ,(local-file "/home/colin/dotfiles/foot/foot.ini"))
+      ("git/config"      ,(local-file "/home/colin/dotfiles/git/config"))
+      ("i3status/config" ,(local-file "/home/colin/dotfiles/i3status/config"))
+      ("sway/config"     ,(local-file "/home/colin/dotfiles/sway/config"))
       ("swaylock/config" ,(local-file "/home/colin/dotfiles/swaylock/config"))
       ("swaynag/config"  ,(local-file "/home/colin/dotfiles/swaynag/config"))
-      ("git/config"      ,(local-file "/home/colin/dotfiles/git/config"))
-      ("i3status/config" ,(local-file "/home/colin/dotfiles/i3status/config")))))))
+      ("wofi/style.css"  ,(local-file "/home/colin/dotfiles/wofi/style.css")))))))
+
