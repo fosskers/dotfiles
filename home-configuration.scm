@@ -22,7 +22,7 @@
     "libreoffice"
     "sway"
     ;; --- Programming --- ;;
-    "clojure"
+    "clojure-tools"
     "sbcl"
     ;; --- System Tools --- ;;
     "foot"
@@ -64,7 +64,7 @@
      (environment-variables
       '(("EDITOR" . "emacs")
         ("GTK_THEME" . "Adwaita:dark")
-        ("GUIX_LOCPATH" . "$HOME/.guix-profile/lib/locale/")
+        ("GUIX_LOCPATH" . "$HOME/.guix-home/profile/lib/locale/")
         ("JAVA_HOME" . "/usr/lib/jvm/default")
         ("LANG" . "en_US.UTF-8")
         ("LC_ALL" . "en_US.UTF-8")
