@@ -78,7 +78,6 @@
     `(("aura.toml"       ,(local-file "/home/colin/dotfiles/aura.toml"))
       ("fcitx5/config"   ,(local-file "/home/colin/dotfiles/fcitx5/config"))
       ("foot/foot.ini"   ,(local-file "/home/colin/dotfiles/foot/foot.ini"))
-      ("git/config"      ,(local-file "/home/colin/dotfiles/git/config"))
       ("i3status/config" ,(local-file "/home/colin/dotfiles/i3status/config"))
       ("sway/config"     ,(local-file "/home/colin/dotfiles/sway/config"))
       ("swaylock/config" ,(local-file "/home/colin/dotfiles/swaylock/config"))
