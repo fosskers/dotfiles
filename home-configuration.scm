@@ -23,6 +23,8 @@
     "sway"
     ;; --- Programming --- ;;
     "clojure-tools"
+    "fennel"
+    "fnlfmt"
     "sbcl"
     ;; --- System Tools --- ;;
     "foot"
